@@ -22,6 +22,7 @@ about.  In the *schedule* models we relate *Role* to *Show* in the
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
+from people.models import Singer
 
 class Book(models.Model):
     '''
@@ -91,7 +92,16 @@ class Role(models.Model):
                   )
 
     name = models.CharField(max_length=50)
+    description = models.CharField(max_length=100, null=True, blank=True, default='')
     book = models.ForeignKey(Book, related_name='roles')
     type = models.IntegerField(choices=ROLE_TYPES, verbose_name="Type",
                                default=UNSPECIFIED)
 
+class OperaticRole(Role):
+    voice = models.IntegerField(choices=Singer.VOICE_TYPES, verbose_name=_("Voice"),
+                                null=False, default=Singer.UNSPECIFIED)
+    fach = models.IntegerField(choices=Singer.FACHS, verbose_name=_("Fach"), default=0)
+
+    def __init__(self, *args, **kwargs):
+        self._meta.get_field('type').default=Role.SINGING
+        super(OperaticRole, self).__init__(*args, **kwargs)
