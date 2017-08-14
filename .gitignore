@@ -4,3 +4,9 @@ local_settings.py
 
 *.sublime-project
 *.sublime-workspace
+
+bin
+lib
+lib64
+share
+pyvenv.cfg

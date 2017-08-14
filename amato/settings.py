@@ -39,6 +39,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'phonenumber_field',
+
+    'people',
+    'schedule',
+    'company',
+    'library',
+
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -116,10 +122,16 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
 
-from local_settings import *
+# Production settings have their own file to override stuff here
+try:
+    LOCAL_SETTINGS
+except:
+    try:
+        from amato.local_settings import *
+    except ImportError:
+        pass
