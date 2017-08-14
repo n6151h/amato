@@ -1,21 +1,54 @@
+"""
+Note that the *Castmember* model, even though it describes a *Person* is
+found in the _schedule_ app's model. This is done mainly to avoid circular import
+hassles.  However, it also reflects the notion that a cast member is
+scheduled to play their role in a given *Show*, so it does make some
+intuitive, not to mention logictical sense for *CastMember* to be
+defined in the _schedule_ app.
+"""
+
 from __future__ import unicode_literals
 
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-
-# Create your models here.
+from phonenumber_field.modelfields import PhoneNumberField
 
 class Person(models.Model):
-    firstname = models.CharField(required=True, max_length=30)
-    surname = models.CharField(required=True, max_length=30)
+    '''
+    Basic but essential information about a person.  This is by and large
+    an abstract class for the other models defined herein.
+    '''
+    firstname = models.CharField(max_length=30, null=False, blank=False)
+    surname = models.CharField(max_length=30)
 
-    phone = model.PhoneNumberField(blank=True)
+    phone = PhoneNumberField(blank=True)
+    email = models.EmailField(blank=True, default='')
 
 
-class Musician(Person):
-    pass  #
+class Talent(Person):
+    '''
+    Yet another layer of abstraction, mainly to distinguish between
+    performers and non-performers, such as production staff, ushers,
+    and box-office staff.   Using the term "talent" instead of, say,
+    "musician" lets us off the hook in having to implicitly insult
+    singers by referring only to orchestra members as "musicians".
 
-class Singer(Musician):
+    *Talent* can (and will) refer to actors (at the moment there is no
+    *Actor* model, nor do I plan on there being one) as well as
+    speakers (narrators, MCs, voice-over artists, etc.)
+
+    *Talent* can (and for now will) also include conductors, choreaographers,
+    and directors.
+    '''
+    agent = models.CharField(max_length=60, default='')
+    headshot = models.ImageField(null=True, blank=True)
+
+
+class Singer(Talent):
+    '''
+    A subtype of talent that includes musicians whose instrument is
+    "voice".
+    '''
     UNSPECIFIED = -1
     SOPRANO = 1
     ALTO = 2
@@ -32,37 +65,50 @@ class Singer(Musician):
         (TENOR, _("tenor")),
         (COUNTERTENOR, _("counter-tenor")),
         (BARITONE, _("baritone")),
-        (BASE, _("bass")),
+        (BASS, _("bass")),
         (UNSPECIFIED, _("unspecified")),
     ]
 
-    FACHS = enumerate(['lyric', 'coloratura', 'dramatic', 'verdi', 'mozart', 'helgen'])
+    FACHS = enumerate(['', 'lyric', 'coloratura', 'dramatic', 'verdi', 'mozart', 'helgen'])
 
     voice = models.IntegerField(choices=VOICE_TYPES, verbose_name=_("Voice"),
-                                required=True, nullable=False, default=UNSPECIFIED)
-    fach = models.IntegerField(choices=FACHS, verbose_name=_("Fach"))
+                                null=False, default=UNSPECIFIED)
+    fach = models.IntegerField(choices=FACHS, verbose_name=_("Fach"), default=0)
 
 
-class Instrumentalist(Musician):
-    instrument = model.CharField(required)
+class Instrumentalist(Talent):
+    '''
+    A subtype of *Talent* whose musical instrument is something other than their voice.
+    '''
+    instrument = models.CharField(null=False, blank=True, max_length=40)
+
+class Dancer(Talent):
+    '''
+    Included for completeness.  At this time I'm not really
+    sure about what else to put in here.  Ideally there should perhaps
+    be an enumeration field of some sort that allows a dancer to be
+    listed as a subset of types.  (E.g. ballet, tap, and jazz).
+    '''
+    style = models.CharField(max_length=100)
 
 class Staff(Person):
-    PRODUCTION_FUNCTION = 1
-    HOUSE_FUNCTION = 2
-    ADMIN_FUNCTION = 3
-    GENERAL_FUNCTION = 4
+    '''
+    Staff are those *Person*s who work behind the scene to make things happen.
+    '''
+    PRODUCTION_AREA = 1
+    STAGE_AREA = 2
+    HOUSE_AREA = 3
+    ADMIN_AREA = 4
+    GENERAL_AREA = 5
 
-    STAFF_FUNCTIONS = [
-        (PRODUCTION_FUNCTION, _"production"),
-        (HOUSE_FUNCTION, _"house"),
-        (ADMIN_FUNCTION, _("administration"),
-        (GENERAL_FUNCTION, _("support")),
+    STAFF_AREAS = [
+        (PRODUCTION_AREA, _("production")),
+        (STAGE_AREA, _("stage")),
+        (HOUSE_AREA, _("house")),
+        (ADMIN_AREA, _("administration")),
+        (GENERAL_AREA, _("support")),
     ]
 
-    function models.IntegerField(choices=STAFF_FUNCTIONS, verbose_name=_("Function"),
-                                required=True, nullable=False, default=GENERAL_FUNCTION)
+    area = models.IntegerField(choices=STAFF_AREAS, verbose_name=_("Area"),
+                                null=False, default=GENERAL_AREA)
 
-
-# Need a way to model director, chorus master, choreographer, stage manager, lighting designer, set designer, costumer
-
-# Need a way to maintain customer / subscriber data

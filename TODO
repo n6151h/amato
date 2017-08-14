@@ -3,4 +3,8 @@ TODO
 
 # Need a way to model director, chorus master, choreographer, stage manager, lighting designer, set designer, costumer
 
+    Use Group:
+         - Directors, Choreographers, ...
+         - managers / crew heads / etc
+
 # Need a way to maintain customer / subscriber data
