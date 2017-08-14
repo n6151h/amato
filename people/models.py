@@ -21,9 +21,12 @@ class Person(models.Model):
     firstname = models.CharField(max_length=30, null=False, blank=False)
     surname = models.CharField(max_length=30)
 
-    phone = PhoneNumberField(blank=True)
+    phone = PhoneNumberField(blank=True, null=False, default='')
     email = models.EmailField(blank=True, default='')
 
+    @property
+    def name(self):
+        return '{}, {}'.format(self.surname, self.firstname)
 
 class Talent(Person):
     '''
@@ -40,8 +43,8 @@ class Talent(Person):
     *Talent* can (and for now will) also include conductors, choreaographers,
     and directors.
     '''
-    agent = models.CharField(max_length=60, default='')
-    headshot = models.ImageField(null=True, blank=True)
+    agent = models.CharField(max_length=60, null=False, blank=True, default='')
+    headshot = models.ImageField(null=True, blank=True, default=None)
 
 
 class Singer(Talent):
@@ -69,7 +72,7 @@ class Singer(Talent):
         (UNSPECIFIED, _("unspecified")),
     ]
 
-    FACHS = enumerate(['', 'lyric', 'coloratura', 'dramatic', 'verdi', 'mozart', 'helgen'])
+    FACHS = enumerate(map(_, ['', 'lyric', 'coloratura', 'dramatic', 'verdi', 'mozart', 'helgen']))
 
     voice = models.IntegerField(choices=VOICE_TYPES, verbose_name=_("Voice"),
                                 null=False, default=UNSPECIFIED)

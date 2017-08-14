@@ -39,11 +39,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'phonenumber_field',
+    'localflavor',
 
     'people',
     'schedule',
     'company',
     'library',
+
+    'rest_framework',
 
 ]
 
@@ -75,6 +78,13 @@ TEMPLATES = [
         },
     },
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAdminUser',
+    ],
+    'PAGE_SIZE': 10
+}
 
 WSGI_APPLICATION = 'amato.wsgi.application'
 
