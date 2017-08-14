@@ -3,11 +3,13 @@ from rest_framework import routers
 from . import views
 
 router = routers.DefaultRouter()
-router.register(r'opera-score', views.OperaScoreViewSet)
+router.register(r'opera-score', views.OperaViewSet)
+#router.register(r'operatic-role', views.OperaticRoleViewSet)
+router.register(r'role-detail', views.OperaticRoleViewSet)
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
     url(r'^', include(router.urls)),
-    url(r'^api-opera-score/', include('rest_framework.urls', namespace='rest_framework'))
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
