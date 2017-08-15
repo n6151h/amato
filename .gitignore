@@ -1,3 +1,4 @@
+pip-selfcheck.json
 local_settings.py
 *.db
 *.pyc

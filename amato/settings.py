@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'library',
 
     'rest_framework',
+    'coreapi',
 
 ]
 
