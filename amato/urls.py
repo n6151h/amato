@@ -20,5 +20,5 @@ import library
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^library/', include('library.urls'))
+    url(r'^library/', include('library.urls', namespace="library"))
 ]
