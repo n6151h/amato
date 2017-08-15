@@ -16,9 +16,19 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
+from rest_framework.schemas import get_schema_view
+
 import library
+import schedule
+
+schema_view = get_schema_view(title='Pastebin API')
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^library/', include('library.urls', namespace="library"))
+    url(r'^library/', include('library.urls', namespace="library")),
+    url(r'^schedule/', include('schedule.urls', namespace="schedule")),
+    #url(r'^people/', include('people.urls', namespace="people")),
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^schema/$', schema_view),
 ]
+
