@@ -1,4 +1,5 @@
 pip-selfcheck.json
+sq1.sh
 local_settings.py
 *.db
 *.pyc
