@@ -15,11 +15,6 @@ class RoleSerializer(serializers.HyperlinkedModelSerializer):
         fields = '__all__'
 
 
-class OperaSelectorField(serializers.RelatedField):
-    def to_representation(self, opera):
-        return opera.title
-
-
 class OperaticRoleSerializer(serializers.HyperlinkedModelSerializer):
 
     url = serializers.HyperlinkedIdentityField(
@@ -31,6 +26,24 @@ class OperaticRoleSerializer(serializers.HyperlinkedModelSerializer):
         model = OperaticRole
         fields = '__all__'
 
+    def create(self, validated_data):
+        role = OperaticRole.objects.create(**validated_data)
+        return role
+
+    def to_representation(self, obj):
+        '''
+        For whatever reason, when we get here, *obj* is a *Role*
+        instance rather than an *OperaticRole* instance.  Even more
+        odd is the fact that there is a *operaticrole* attribute
+        of *obj* that points to what we really want.  WTF?
+
+        In the end, I wound up not using this at all and just making
+        the *roles* field in *OperaSerializer* a *HyperlinkedRelatedField*.
+        '''
+        cobj = obj.operaticrole
+        return super(OperaticRoleSerializer, self).to_representation(obj)
+
+
 class BookSerializer(serializers.HyperlinkedModelSerializer):
 
     roles = serializers.PrimaryKeyRelatedField(many=True, queryset=Role.objects.all())
@@ -39,7 +52,6 @@ class BookSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Book
         fields = '__all__'
-        #extra_kwargs = {'url': {'view_name': 'library:book-detail'}}
 
 class ScriptSerializer(serializers.HyperlinkedModelSerializer):
 
@@ -64,8 +76,11 @@ class MusicalSerializer(serializers.HyperlinkedModelSerializer):
 
 class OperaSerializer(serializers.HyperlinkedModelSerializer):
 
-    roles = OperaticRoleSerializer(many=True)
-    url = serializers.HyperlinkedIdentityField(view_name='library:opera-detail')
+    #roles = OperaticRoleSerializer(many=True)
+    roles = serializers.HyperlinkedRelatedField(queryset=OperaticRole.objects.all(),
+                view_name="library:operaticrole-detail", many=True)
+    url = serializers.HyperlinkedIdentityField(
+                view_name='library:opera-detail')
 
     class Meta:
         model = Opera
@@ -98,7 +113,5 @@ class OperaSerializer(serializers.HyperlinkedModelSerializer):
         return instance
 
     def to_representation(self, obj):
-        import pdb
-        pdb.set_trace()
         return super(OperaSerializer, self).to_representation(obj)
 

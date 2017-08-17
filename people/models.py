@@ -108,7 +108,6 @@ class Staff(Person):
     '''
     Staff are those *Person*s who work behind the scene to make things happen.
     '''
-
     area = EnumChoiceField(StaffAreaEnum,
                            default=StaffAreaEnum.general,
                            verbose_name="Area")
