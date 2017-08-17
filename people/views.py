@@ -7,31 +7,31 @@ from .models import *
 
 from .serializers import *
 
-class SeasonViewSet(viewsets.ModelViewSet):
+class SingerViewSet(viewsets.ModelViewSet):
     """
-    API endpoint that allows "seasons" to be viewed or edited.
+    API endpoint that allows "singers" to be viewed or edited.
     """
-    queryset = Season.objects.all()
-    serializer_class = SeasonSerializer
+    queryset = Singer.objects.all()
+    serializer_class = SingerSerializer
 
-class ProductionViewSet(viewsets.ModelViewSet):
+class InstrumentalistViewSet(viewsets.ModelViewSet):
     """
-    API endpoint that allows "productions" to be viewed or edited.
+    API endpoint that allows instrumentalists to be viewed or edited.
     """
-    queryset = Production.objects.all()
-    serializer_class = ProductionSerializer
+    queryset = Instrumentalist.objects.all()
+    serializer_class = InstrumentalistSerializer
 
-class ShowViewSet(viewsets.ModelViewSet):
+class DancerViewSet(viewsets.ModelViewSet):
     """
-    API endpoint that allows "shows" to be viewed or edited.
+    API endpoint that allows "dancers" to be viewed or edited.
     """
-    queryset = Show.objects.all()
-    serializer_class = ShowSerializer
+    queryset = Dancer.objects.all()
+    serializer_class = DancerSerializer
 
-class CallViewSet(viewsets.ModelViewSet):
+class StaffViewSet(viewsets.ModelViewSet):
     """
-    API endpoint that allows "calls" to be viewed or edited.
+    API endpoint that allows "singers" to be viewed or edited.
     """
-    queryset = Call.objects.all()
-    serializer_class = CallSerializer
+    queryset = Staff.objects.all()
+    serializer_class = StaffSerializer
 

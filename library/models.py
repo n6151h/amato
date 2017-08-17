@@ -21,8 +21,10 @@ about.  In the *schedule* models we relate *Role* to *Show* in the
 
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from enumchoicefield import ChoiceEnum, EnumChoiceField
+from people.models import Singer, VoiceTypeEnum, FachEnum
 
-from people.models import Singer
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 class Book(models.Model):
     '''
@@ -32,8 +34,10 @@ class Book(models.Model):
     '''
     title = models.CharField(max_length=100)
     publisher = models.CharField(max_length=100)
-    pub_date = models.DateField()
+    published = models.IntegerField(null=True, default=None,
+       validators=[MinValueValidator(1300), ])
     synopsis = models.TextField()
+
 
 class Script(Book):
     '''
@@ -64,6 +68,12 @@ class Opera(Book):
     composer = models.CharField(max_length=100)
     librettist = models.CharField(max_length=100)
 
+    def __unicode__(self):
+        return "{0.title} ({0.publisher})".format(self)
+
+    __repr__ = __unicode__
+
+
 class Oratorio(Book):
     '''
     This class is included to contain other musical works
@@ -72,6 +82,12 @@ class Oratorio(Book):
     '''
     composer = models.CharField(max_length=100)
 
+class RoleTypeEnum(ChoiceEnum):
+    speaking = "speaking"
+    non_speaking = "non-speaking"
+    singing = "singing"
+    unspecified = "unspecified"
+
 class Role(models.Model):
     '''
     This descripbes a member of an ensemble of actors in
@@ -79,29 +95,16 @@ class Role(models.Model):
     in the schedule app.   (See *CastMember* and *Show* models
     in the _schedule_ app.)
     '''
-    SPEAKING = 1
-    NON_SPEAKING = 2
-    SINGING = 3
-    UNSPECIFIED = 0
-
-    ROLE_TYPES = (
-                  (SPEAKING, _("speaking")),
-                  (NON_SPEAKING, _("non-speakng")),
-                  (SINGING, _("singing")),
-                  (UNSPECIFIED, _("unspecified")),
-                  )
-
     name = models.CharField(max_length=50)
     description = models.CharField(max_length=100, null=True, blank=True, default='')
     book = models.ForeignKey(Book, related_name='roles')
-    type = models.IntegerField(choices=ROLE_TYPES, verbose_name="Type",
-                               default=UNSPECIFIED)
+    role_type = EnumChoiceField(RoleTypeEnum,
+                                default=RoleTypeEnum.unspecified)
 
 class OperaticRole(Role):
-    voice = models.IntegerField(choices=Singer.VOICE_TYPES, verbose_name=_("Voice"),
-                                null=False, default=Singer.UNSPECIFIED)
-    fach = models.IntegerField(choices=Singer.FACHS, verbose_name=_("Fach"), default=0)
+    voice = EnumChoiceField(VoiceTypeEnum, default=VoiceTypeEnum.unspecified)
+    fach = EnumChoiceField(FachEnum, default=FachEnum.unspecified)
 
     def __init__(self, *args, **kwargs):
-        self._meta.get_field('type').default=Role.SINGING
+        self._meta.get_field('role_type').default=RoleTypeEnum.singing
         super(OperaticRole, self).__init__(*args, **kwargs)

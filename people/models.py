@@ -12,6 +12,7 @@ from __future__ import unicode_literals
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from phonenumber_field.modelfields import PhoneNumberField
+from enumchoicefield import ChoiceEnum, EnumChoiceField
 
 class Person(models.Model):
     '''
@@ -47,36 +48,37 @@ class Talent(Person):
     headshot = models.ImageField(null=True, blank=True, default=None)
 
 
+class VoiceTypeEnum(ChoiceEnum):
+    unspecified = "unspecified"
+    soprano = "soprano"
+    alto = "alto"
+    mezzo = "mezzo-soprano"
+    tenor = "tenor"
+    countertenor = "countertenor"
+    baritone = "baritone"
+    bass = "bass"
+
+class FachEnum(ChoiceEnum):
+    unspecified = ""
+    lyric = 'lyric'
+    coloratura = 'coloratura'
+    dramatic = 'dramatic'
+    spinto = 'spinto'
+    verdi = 'verdi'
+    mozart = 'mozart'
+    helgen = 'helgen'
+    wagnerian = 'wagnerian'
+    baroque = 'baroque'
+
 class Singer(Talent):
     '''
     A subtype of talent that includes musicians whose instrument is
     "voice".
     '''
-    UNSPECIFIED = -1
-    SOPRANO = 1
-    ALTO = 2
-    MEZZO = 3
-    TENOR = 4
-    COUNTERTENOR = 5
-    BARITONE = 6
-    BASS = 7
-
-    VOICE_TYPES = [
-        (SOPRANO, _("soprano")),
-        (ALTO, _("alto")),
-        (MEZZO, _("mezzo-soprano")),
-        (TENOR, _("tenor")),
-        (COUNTERTENOR, _("counter-tenor")),
-        (BARITONE, _("baritone")),
-        (BASS, _("bass")),
-        (UNSPECIFIED, _("unspecified")),
-    ]
-
-    FACHS = enumerate(map(_, ['', 'lyric', 'coloratura', 'dramatic', 'verdi', 'mozart', 'helgen']))
-
-    voice = models.IntegerField(choices=VOICE_TYPES, verbose_name=_("Voice"),
-                                null=False, default=UNSPECIFIED)
-    fach = models.IntegerField(choices=FACHS, verbose_name=_("Fach"), default=0)
+    voice = EnumChoiceField(VoiceTypeEnum,
+                            default=VoiceTypeEnum.unspecified,
+                            verbose_name="Voice Type")
+    fach = EnumChoiceField(FachEnum, FachEnum.unspecified)
 
 
 class Instrumentalist(Talent):
@@ -94,24 +96,21 @@ class Dancer(Talent):
     '''
     style = models.CharField(max_length=100)
 
+
+class StaffAreaEnum(ChoiceEnum):
+    general = "general"
+    production = "production"
+    stage = "stage"
+    house = "house"
+    admin = "administration"
+
 class Staff(Person):
     '''
     Staff are those *Person*s who work behind the scene to make things happen.
     '''
-    PRODUCTION_AREA = 1
-    STAGE_AREA = 2
-    HOUSE_AREA = 3
-    ADMIN_AREA = 4
-    GENERAL_AREA = 5
 
-    STAFF_AREAS = [
-        (PRODUCTION_AREA, _("production")),
-        (STAGE_AREA, _("stage")),
-        (HOUSE_AREA, _("house")),
-        (ADMIN_AREA, _("administration")),
-        (GENERAL_AREA, _("support")),
-    ]
+    area = EnumChoiceField(StaffAreaEnum,
+                           default=StaffAreaEnum.general,
+                           verbose_name="Area")
 
-    area = models.IntegerField(choices=STAFF_AREAS, verbose_name=_("Area"),
-                                null=False, default=GENERAL_AREA)
 

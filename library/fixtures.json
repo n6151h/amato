@@ -1,0 +1,40 @@
+[
+  {
+    "model": "library.Book",
+    "pk": 1,
+    "fields": {
+      "title": "Don Giovanni",
+      "publisher": "Ricordi",
+      "published": 1787,
+      "synopsis": "yadda yadda yadda"
+    }
+  },
+  {
+    "model": "library.Opera",
+    "pk": 1,
+    "book_ptr_id": 1,
+    "fields": {
+        "composer": "Mozart, Wolfgang, Amadeus",
+        "librettist": "Da Ponte, Lorenzo"
+    }
+  },
+  {
+    "model": "library.Book",
+    "pk": 2,
+    "fields": {
+        "title": "L'Elisir d'Amore",
+        "publisher": "Ricordi",
+        "published": 1836,
+        "synopsis": "blah blah"
+    }
+  },
+  {
+    "model": "library.Opera",
+    "pk": 2,
+    "book_ptr_id": 2,
+    "fields": {
+        "composer": "Donezetti, Gaetano",
+        "librettist": "Romani, Felice"
+    }
+  }
+ ]
