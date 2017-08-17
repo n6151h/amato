@@ -56,7 +56,5 @@ class OperaticRoleViewSet(viewsets.ModelViewSet):
     serializer_class = OperaticRoleSerializer
 
     def perform_create(self, serializer):
-        import pdb
-        pdb.set_trace()
         opera = Opera.objects.get(pk=self.request.data['book'])
         serializer.save(book=opera)

@@ -68,11 +68,15 @@ class Opera(Book):
     composer = models.CharField(max_length=100)
     librettist = models.CharField(max_length=100)
 
-    def __unicode__(self):
+    # Where this is used in a dropdown (See serializers.OperaticRoleSerializer.book)
+    # it will appear as "Opera object" on every dropdown line unless you
+    # redefine the __unicode__ and __str__ magic methods.  We do this for both
+    # See: https://stackoverflow.com/questions/34885381/see-description-in-django-rest-framework-dropdown
+    def __unicode__(self):   # Need this for python 2
         return "{0.title} ({0.publisher})".format(self)
 
-    __repr__ = __unicode__
-
+    def __str__(self):       # Need this for python 3
+        return "{0.title} ({0.publisher})".format(self)
 
 class Oratorio(Book):
     '''
@@ -106,5 +110,6 @@ class OperaticRole(Role):
     fach = EnumChoiceField(FachEnum, default=FachEnum.unspecified)
 
     def __init__(self, *args, **kwargs):
-        self._meta.get_field('role_type').default=RoleTypeEnum.singing
         super(OperaticRole, self).__init__(*args, **kwargs)
+        self._meta.get_field('role_type').default=RoleTypeEnum.singing
+
