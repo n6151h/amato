@@ -12,7 +12,9 @@ from __future__ import unicode_literals
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from phonenumber_field.modelfields import PhoneNumberField
-from enumchoicefield import ChoiceEnum, EnumChoiceField
+
+from talent.models import Talent
+
 
 class Person(models.Model):
     '''
@@ -25,11 +27,14 @@ class Person(models.Model):
     phone = PhoneNumberField(blank=True, null=False, default='')
     email = models.EmailField(blank=True, default='')
 
+    talents = models.ManyToManyField(Talent,
+                                     verbose_name="talents and skills")
+
     @property
     def name(self):
         return '{}, {}'.format(self.surname, self.firstname)
 
-class Talent(Person):
+class Artist(Person):
     '''
     Yet another layer of abstraction, mainly to distinguish between
     performers and non-performers, such as production staff, ushers,
@@ -46,70 +51,5 @@ class Talent(Person):
     '''
     agent = models.CharField(max_length=60, null=False, blank=True, default='')
     headshot = models.ImageField(null=True, blank=True, default=None)
-
-
-class VoiceTypeEnum(ChoiceEnum):
-    unspecified = "unspecified"
-    soprano = "soprano"
-    alto = "alto"
-    mezzo = "mezzo-soprano"
-    tenor = "tenor"
-    countertenor = "countertenor"
-    baritone = "baritone"
-    bass = "bass"
-
-class FachEnum(ChoiceEnum):
-    unspecified = ""
-    lyric = 'lyric'
-    coloratura = 'coloratura'
-    dramatic = 'dramatic'
-    spinto = 'spinto'
-    verdi = 'verdi'
-    mozart = 'mozart'
-    helgen = 'helgen'
-    wagnerian = 'wagnerian'
-    baroque = 'baroque'
-
-class Singer(Talent):
-    '''
-    A subtype of talent that includes musicians whose instrument is
-    "voice".
-    '''
-    voice = EnumChoiceField(VoiceTypeEnum,
-                            default=VoiceTypeEnum.unspecified,
-                            verbose_name="Voice Type")
-    fach = EnumChoiceField(FachEnum, FachEnum.unspecified)
-
-
-class Instrumentalist(Talent):
-    '''
-    A subtype of *Talent* whose musical instrument is something other than their voice.
-    '''
-    instrument = models.CharField(null=False, blank=True, max_length=40)
-
-class Dancer(Talent):
-    '''
-    Included for completeness.  At this time I'm not really
-    sure about what else to put in here.  Ideally there should perhaps
-    be an enumeration field of some sort that allows a dancer to be
-    listed as a subset of types.  (E.g. ballet, tap, and jazz).
-    '''
-    style = models.CharField(max_length=100)
-
-
-class StaffAreaEnum(ChoiceEnum):
-    general = "general"
-    production = "production"
-    stage = "stage"
-    house = "house"
-    admin = "administration"
-
-class Staff(Person):
-    '''
-    Staff are those *Person*s who work behind the scene to make things happen.
-    '''
-    area = EnumChoiceField(StaffAreaEnum,
-                           default=StaffAreaEnum.general,
-                           verbose_name="Area")
 
 

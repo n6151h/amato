@@ -2,28 +2,28 @@ from rest_framework import serializers
 
 from .models import *
 
-class SingerSerializer(serializers.HyperlinkedModelSerializer):
+from talent.models import Talent
+
+class PersonSerializer(serializers.ModelSerializer):
+
+    talents = serializers.HyperlinkedRelatedField(many=True,
+                    queryset=Talent.objects.all(),
+                    view_name="talent:talent-detail")
 
     class Meta:
-        model = Singer
+        model = Person
+        #exclude = ('talents',)
         fields = '__all__'
-        extra_kwargs = {'url': {'view_name': 'people:singer-detail'}}
 
-class InstrumentalistSerializer(serializers.HyperlinkedModelSerializer):
+class ArtistSerializer(serializers.HyperlinkedModelSerializer):
+
+    talents = serializers.HyperlinkedRelatedField(many=True,
+                    queryset=Talent.objects.all(),
+                    view_name="talent:talent-detail")
 
     class Meta:
-        model = Instrumentalist
+        model = Artist
         fields = '__all__'
 
-class DancerSerializer(serializers.HyperlinkedModelSerializer):
 
-    class Meta:
-        model = Dancer
-        fields = '__all__'
-
-class StaffSerializer(serializers.HyperlinkedModelSerializer):
-
-    class Meta:
-        model = Staff
-        fields = '__all__'
 

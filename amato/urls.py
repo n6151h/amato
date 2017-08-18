@@ -27,6 +27,7 @@ urlpatterns = [
     url(r'^library/', include('library.urls', namespace="library")),
     url(r'^people/', include('people.urls', namespace="people")),
     url(r'^schedule/', include('schedule.urls', namespace="schedule")),
+    url(r'^talent/', include('talent.urls', namespace="talent")),
 
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^schema/', schema_view),

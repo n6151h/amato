@@ -41,10 +41,11 @@ INSTALLED_APPS = [
     'phonenumber_field',
     'localflavor',
 
-    'people',
-    'schedule',
     'company',
     'library',
+    'people',
+    'schedule',
+    'talent',
 
     'rest_framework',
     'coreapi',
