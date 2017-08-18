@@ -3,15 +3,12 @@ from django.contrib import admin
 
 from .models import *
 
-class InstrumentalistAdmin(admin.ModelAdmin):
-    list_display = ('name', 'instrument', 'phone', 'email')
+class PersonAdmin(admin.ModelAdmin):
+    list_display = ('name', 'phone', 'email',)  # talents
 
-class SingerAdmin(admin.ModelAdmin):
-    list_display = ('name', 'voice', 'phone', 'email')
+class ArtistAdmin(admin.ModelAdmin):
+    list_display = ('name', 'phone', 'email', 'agent', 'headshot')
 
-class StaffAdmin(admin.ModelAdmin):
-    list_display = ('name', 'area', 'phone', 'email')
 
-admin.site.register(Instrumentalist, InstrumentalistAdmin)
-admin.site.register(Singer, SingerAdmin)
-admin.site.register(Staff, StaffAdmin)
+admin.site.register(Person, PersonAdmin)
+admin.site.register(Artist, ArtistAdmin)

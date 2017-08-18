@@ -5,8 +5,9 @@ from . import views
 
 router = routers.DefaultRouter()
 
-router.register(r'person', views.PersonViewSet)
-router.register(r'artist', views.ArtistViewSet)
+router.register(r'talent', views.TalentViewSet)
+router.register(r'singing', views.SingingViewSet)
+router.register(r'dancing', views.DancingViewSet)
 
 
 # Wire up our API using automatic URL routing.

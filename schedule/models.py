@@ -3,6 +3,8 @@ from __future__ import unicode_literals
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
+from enumchoicefield import ChoiceEnum, EnumChoiceField
+
 import company.models as co
 import library.models as lm
 import people.models as pm
@@ -40,43 +42,43 @@ class Show(models.Model):
 
 
 class Director(models.Model):
-    person = models.ForeignKey(pm.Talent, related_name="director",
+    person = models.ForeignKey(pm.Artist, related_name="director",
                                   on_delete=models.CASCADE)
     show = models.OneToOneField(Show, related_name="director",
                                 on_delete=models.CASCADE)
 
 class Conductor(models.Model):
-    person = models.ForeignKey(pm.Talent, related_name="conductors",
+    person = models.ForeignKey(pm.Artist, related_name="conductors",
                                on_delete=models.CASCADE)
     show = models.OneToOneField(Show, related_name="conductor",
                              on_delete=models.CASCADE)
 
 class Choreographer(models.Model):
-    person = models.ForeignKey(pm.Talent, related_name="choreographers",
+    person = models.ForeignKey(pm.Artist, related_name="choreographers",
                                on_delete=models.CASCADE)
     show = models.OneToOneField(Show, related_name="choreographer",
                              on_delete=models.CASCADE)
 
 class StageManager(models.Model):
-    person = models.ForeignKey(pm.Talent, related_name="stage_managers",
+    person = models.ForeignKey(pm.Artist, related_name="stage_managers",
                                on_delete=models.CASCADE)
     show = models.OneToOneField(Show, related_name="stage_manager",
                              on_delete=models.CASCADE)
 
 class SetDesigner(models.Model):
-    person = models.ForeignKey(pm.Talent, related_name="set_designers",
+    person = models.ForeignKey(pm.Artist, related_name="set_designers",
                                on_delete=models.CASCADE)
     show = models.OneToOneField(Show, related_name="set_designer",
                              on_delete=models.CASCADE)
 
 class LightingDesigner(models.Model):
-    person = models.ForeignKey(pm.Talent, related_name="lighting_designers",
+    person = models.ForeignKey(pm.Artist, related_name="lighting_designers",
                                on_delete=models.CASCADE)
     show = models.OneToOneField(Show, related_name="lighting_designer",
                              on_delete=models.CASCADE)
 
 class Costumer(models.Model):
-    person = models.ForeignKey(pm.Talent, related_name="costumer",
+    person = models.ForeignKey(pm.Artist, related_name="costumer",
                                on_delete=models.CASCADE)
     show = models.OneToOneField(Show, related_name="costumer",
                              on_delete=models.CASCADE)
@@ -88,13 +90,21 @@ class CastMember(models.Model):
     such as directors and crew members) with a particular show
     '''
     role = models.ForeignKey(lm.Role, related_name='played_by')
-    person = models.ForeignKey(pm.Talent, related_name='repetoire')
+    person = models.ForeignKey(pm.Artist, related_name='repetoire')
     show = models.ForeignKey(Show, related_name='cast')
 
 
 class CrewMember(models.Model):
-    person = models.ForeignKey(pm.Staff, related_name='crews')
+    person = models.ForeignKey(pm.Person, related_name='crews')
     show = models.ForeignKey(Show, related_name='crew')
+
+
+class CallTypeEnum(ChoiceEnum):
+    unspecified = "unspecified"
+    rehearsal = "rehearsal"
+    performance = "performance"
+    meeting = "meeting"
+
 
 class Call(models.Model):
     '''
@@ -103,20 +113,11 @@ class Call(models.Model):
     and place where (and when) you're expected to be.  This can be a rehearsal,
     a performance, a coaching session, or just a meeting of some sort.
     '''
-    REHEARSAL = 1
-    PERFORMANCE = 2
-    MEETING = 3
-
-    CALL_TYPES = [
-        (REHEARSAL, _("rehearsal")),
-        (PERFORMANCE, _("performance")),
-        (MEETING, _("meeting")),
-    ]
 
     dtg = models.DateTimeField()
     duration = models.DurationField()
     location = models.CharField(max_length=100)
     show = models.ForeignKey(Show, related_name="calls")
-    type = models.IntegerField(choices=CALL_TYPES, verbose_name="Type",
-                               default=MEETING)
+    type = EnumChoiceField(CallTypeEnum,
+                           default=CallTypeEnum.unspecified)
     callee = models.ForeignKey(pm.Person, related_name="calls")

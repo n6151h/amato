@@ -22,7 +22,7 @@ about.  In the *schedule* models we relate *Role* to *Show* in the
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from enumchoicefield import ChoiceEnum, EnumChoiceField
-from people.models import Singer, VoiceTypeEnum, FachEnum
+from talent.models import VoiceTypeEnum, FachEnum
 
 from django.core.validators import MaxValueValidator, MinValueValidator
 
