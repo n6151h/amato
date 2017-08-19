@@ -53,10 +53,10 @@ class Talent(models.Model):
                                default=TalentCategoryEnum.unspecified)
 
     def __str__(self):
-        return self.category
+        return self.category.name
 
     def __unicode__(self):
-        return self.category
+        return self.category.name
 
 class Singing(Talent):
     '''
@@ -68,7 +68,6 @@ class Singing(Talent):
                             verbose_name="Voice Type")
     fach = EnumChoiceField(FachEnum,
                            default=FachEnum.unspecified)
-
 
 class Orchestra(Talent):
     '''
@@ -86,7 +85,6 @@ class Dancing(Talent):
     '''
     style = EnumChoiceField(DancingStyleEnum,
                             default = DancingStyleEnum.unspecified)
-
 
 #class Acting(Talent):
 #    '''

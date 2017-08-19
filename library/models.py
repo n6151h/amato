@@ -38,6 +38,12 @@ class Book(models.Model):
        validators=[MinValueValidator(1300), ])
     synopsis = models.TextField()
 
+    def __str__(self):
+        return "{} ({})".format(self.title, self.publisher)
+
+    def __unicode__(self):
+        return "{} ({})".format(self.title, self.publisher)
+
 
 class Script(Book):
     '''

@@ -21,3 +21,7 @@ class ArtistViewSet(viewsets.ModelViewSet):
     queryset = Artist.objects.all()
     serializer_class = ArtistSerializer
 
+    #def get_queryset(self):
+    #    import pdb
+    #    pdb.set_trace()
+

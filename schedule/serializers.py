@@ -2,17 +2,18 @@ from rest_framework import serializers
 
 from .models import *
 
-class SeasonSerializer(serializers.HyperlinkedModelSerializer):
+class SeasonSerializer(serializers.ModelSerializer):
 
-    #book = serializers.HyperlinkedRelatedField(
-    #    view_name='opera-score',
+    #book = serializers.PrimaryKeyRelatedField(many=True,
+    #                        queryset=Book.objects.all())
+    #        view_name='opera-score') #,
     #    read_only=True)
 
     class Meta:
         model = Season
         fields = '__all__'
 
-class ProductionSerializer(serializers.HyperlinkedModelSerializer):
+class ProductionSerializer(serializers.ModelSerializer):
 
     #book = serializers.HyperlinkedRelatedField(
     #    view_name='opera-score',
@@ -22,7 +23,7 @@ class ProductionSerializer(serializers.HyperlinkedModelSerializer):
         model = Production
         fields = '__all__'
 
-class ShowSerializer(serializers.HyperlinkedModelSerializer):
+class ShowSerializer(serializers.ModelSerializer):
 
     #book = serializers.HyperlinkedRelatedField(
     #    view_name='opera-score',
@@ -32,7 +33,7 @@ class ShowSerializer(serializers.HyperlinkedModelSerializer):
         model = Show
         fields = '__all__'
 
-class CallSerializer(serializers.HyperlinkedModelSerializer):
+class CallSerializer(serializers.ModelSerializer):
 
     #book = serializers.HyperlinkedRelatedField(
     #    view_name='opera-score',
