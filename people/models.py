@@ -31,8 +31,19 @@ class Person(models.Model):
                                      verbose_name="talents and skills")
 
     @property
-    def name(self):
+    def sorting_name(self):
         return '{}, {}'.format(self.surname, self.firstname)
+
+    @property
+    def name(self):
+        return '{} {}'.format(self.firstname, self.surname)
+
+    def __str__(self):
+        return self.name
+
+    def __unicode__(self):
+        return self.name
+
 
 class Artist(Person):
     '''

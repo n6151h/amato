@@ -1,0 +1,42 @@
+[
+    {
+        "id": 1,
+        "model": "people.Person",
+        "fields": {
+            "talents": [],
+            "firstname": "Nick",
+            "surname": "Seidenman",
+            "phone": "",
+            "email": "nick@seidenman.net"
+        }
+    },
+    {
+        "id": 2,
+        "model": "people.Person",
+        "fields": {
+            "talents": [],
+            "firstname": "Maria Cristina",
+            "surname": "Keightley",
+            "phone": "",
+            "email": "mckbravo@yahoo.com"
+        }
+    },
+    {
+        "id": 1,
+        "model": "people.Artist",
+        "fields": {
+            "person_ptr_id": 1,
+            "agent": "Waters",
+            "headshot": null
+        }
+    },
+    {
+        "id": 2,
+        "model": "people.Artist",
+        "fields": {
+            "person_ptr_id": 2,
+            "agent": "Belle Opera",
+            "headshot": null
+        }
+    }
+    ]

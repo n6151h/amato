@@ -11,6 +11,10 @@ class TalentViewSet(viewsets.ModelViewSet):
     queryset = Talent.objects.all()
     serializer_class = TalentSerializer
 
+    def get_queryset(self):
+        import pdb
+        pdb.set_trace()
+        return Talent.objects.all()
 
 class SingingViewSet(viewsets.ModelViewSet):
     """

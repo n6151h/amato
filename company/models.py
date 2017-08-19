@@ -12,3 +12,9 @@ class Company(models.Model):
 
     # We'll add other fields l ater.
 
+    def __str__(self):
+        return str(self.name)
+
+    def __unicode__(self):
+        return str(self.name)
+

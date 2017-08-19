@@ -76,7 +76,6 @@ class MusicalSerializer(serializers.HyperlinkedModelSerializer):
 
 class OperaSerializer(serializers.HyperlinkedModelSerializer):
 
-    #roles = OperaticRoleSerializer(many=True)
     roles = serializers.HyperlinkedRelatedField(queryset=OperaticRole.objects.all(),
                 view_name="library:operaticrole-detail", many=True)
     url = serializers.HyperlinkedIdentityField(
