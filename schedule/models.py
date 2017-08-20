@@ -9,6 +9,7 @@ import company.models as co
 import library.models as lm
 import people.models as pm
 
+
 class Season(models.Model):
     '''
     Container for *Production*s.
@@ -32,6 +33,12 @@ class Production(models.Model):
     '''
     book = models.ForeignKey(lm.Book, related_name="productions")
     season = models.ForeignKey(Season, related_name='productions')
+
+    def __str__(self):
+        return "{} ({})".format(self.book.title, self.season.name)
+
+    def __unicode__(self):
+        return "{} ({})".format(self.book.title, self.season.name)
 
 # The following models associate production-level artists
 # with productions.   Every show, for example, would have the same
@@ -74,7 +81,7 @@ class Costumer(models.Model):
     production = models.OneToOneField(Production, related_name="costumer",
                              on_delete=models.CASCADE)
 
-class CallTypeEnum(ChoiceEnum):
+class CallTypes(ChoiceEnum):
     unspecified = "unspecified"
     rehearsal = "rehearsal"
     performance = "performance"
@@ -92,8 +99,8 @@ class Call(models.Model):
     duration = models.DurationField()
     location = models.CharField(max_length=100)
     production = models.ForeignKey(Production, related_name="calls")
-    type = EnumChoiceField(CallTypeEnum,
-                           default=CallTypeEnum.unspecified)
+    type = EnumChoiceField(CallTypes,
+                           default=CallTypes.meeting)
     called = models.ManyToManyField(pm.Person)
 
 
@@ -107,9 +114,8 @@ class Show(models.Model):
     need to be sub-classed and that doesn't need to have attributes
     included that are extraneous to call types other than PERFORMANCE.
     '''
-    name = models.CharField(max_length=100)
     production = models.ForeignKey(Production, related_name='shows')
-    when = models.DateTimeField()
+    curtain = models.DateTimeField()
 
 
 # The following are positions within a production that can (and often
@@ -132,12 +138,24 @@ class CastMember(models.Model):
     This associates an actor (which can include production stahis itshff
     such as directors and crew members) with a particular show
     '''
-    role = models.ForeignKey(lm.Role, related_name='played_by')
-    person = models.ForeignKey(pm.Artist, related_name='repetoire')
-    show = models.ForeignKey(Show, related_name='cast')
+    show = models.ForeignKey(Show, related_name='cast',
+                             on_delete=models.CASCADE)
+    role = models.ForeignKey(lm.Role,
+                             on_delete=models.CASCADE)
+    artist = models.ForeignKey(pm.Artist, related_name='casts',
+                             on_delete=models.CASCADE)
 
 class CrewMember(models.Model):
-    person = models.ForeignKey(pm.Person, related_name='crews')
-    show = models.ForeignKey(Show, related_name='crew')
+    show = models.ForeignKey(Show, related_name='crew',
+                             on_delete=models.CASCADE)
+    member = models.ForeignKey(pm.Person, related_name='crews',
+                             on_delete=models.CASCADE)
+
+
+class Orchestra(models.Model):
+    show = models.ForeignKey(Show, related_name='orchestra',
+                             on_delete=models.CASCADE)
+    musician = models.ForeignKey(pm.Person, related_name='orchestra',
+                             on_delete=models.CASCADE)
 
 

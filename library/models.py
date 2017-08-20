@@ -119,3 +119,8 @@ class OperaticRole(Role):
         super(OperaticRole, self).__init__(*args, **kwargs)
         self._meta.get_field('role_type').default=RoleTypeEnum.singing
 
+    def __str__(self):
+        return "{} ({})".format(self.name, self.description)
+
+    def __unicode__(self):
+        return "{} ({})".format(self.name, self.description)

@@ -5,7 +5,7 @@ from .models import *
 
 from .forms import *
 
-class RoleSerializer(serializers.HyperlinkedModelSerializer):
+class RoleSerializer(serializers.ModelSerializer):
 
     url = serializers.HyperlinkedIdentityField(view_name='library:role-detail')
     book = serializers.HyperlinkedRelatedField(view_name='library:book-detail', queryset=Opera.objects.all())
@@ -15,12 +15,15 @@ class RoleSerializer(serializers.HyperlinkedModelSerializer):
         fields = '__all__'
 
 
-class OperaticRoleSerializer(serializers.HyperlinkedModelSerializer):
+class OperaticRoleSerializer(serializers.ModelSerializer):
 
     url = serializers.HyperlinkedIdentityField(
                     view_name='library:operaticrole-detail')
     book = serializers.PrimaryKeyRelatedField(
                     queryset=Opera.objects.all())
+    #book = serializers.HyperlinkedRelatedField(
+    #                queryset=Opera.objects.all(),
+    #                view_name='library:opera-detail')
 
     class Meta:
         model = OperaticRole
@@ -44,7 +47,7 @@ class OperaticRoleSerializer(serializers.HyperlinkedModelSerializer):
         return super(OperaticRoleSerializer, self).to_representation(obj)
 
 
-class BookSerializer(serializers.HyperlinkedModelSerializer):
+class BookSerializer(serializers.ModelSerializer):
 
     roles = serializers.PrimaryKeyRelatedField(many=True, queryset=Role.objects.all())
     url = serializers.HyperlinkedIdentityField(view_name='library:book-detail')
@@ -53,7 +56,7 @@ class BookSerializer(serializers.HyperlinkedModelSerializer):
         model = Book
         fields = '__all__'
 
-class ScriptSerializer(serializers.HyperlinkedModelSerializer):
+class ScriptSerializer(serializers.ModelSerializer):
 
     roles = RoleSerializer(many=True, read_only=True)
     url = serializers.HyperlinkedIdentityField(view_name='library:script-detail')
@@ -64,7 +67,7 @@ class ScriptSerializer(serializers.HyperlinkedModelSerializer):
         extra_kwargs = {'url': {'view_name': 'library:script-detail'}}
         depth = 1
 
-class MusicalSerializer(serializers.HyperlinkedModelSerializer):
+class MusicalSerializer(serializers.ModelSerializer):
 
     roles = RoleSerializer(many=True, read_only=True)
     url = serializers.HyperlinkedIdentityField(view_name='library:musical-detail')
@@ -74,10 +77,13 @@ class MusicalSerializer(serializers.HyperlinkedModelSerializer):
         fields = '__all__'
         depth = 1
 
-class OperaSerializer(serializers.HyperlinkedModelSerializer):
+class OperaSerializer(serializers.ModelSerializer):
 
-    roles = serializers.HyperlinkedRelatedField(queryset=OperaticRole.objects.all(),
-                view_name="library:operaticrole-detail", many=True)
+    #roles = serializers.HyperlinkedRelatedField(queryset=OperaticRole.objects.all(),
+    #            view_name="library:operaticrole-detail", many=True)
+    roles = serializers.PrimaryKeyRelatedField(
+                            queryset=OperaticRole.objects.all(),
+                            many=True)
     url = serializers.HyperlinkedIdentityField(
                 view_name='library:opera-detail')
 
