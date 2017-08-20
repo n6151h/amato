@@ -1,6 +1,6 @@
 [
     {
-        "id": 1,
+        "pk": 1,
         "model": "people.Person",
         "fields": {
             "talents": [],
@@ -11,7 +11,7 @@
         }
     },
     {
-        "id": 2,
+        "pk": 2,
         "model": "people.Person",
         "fields": {
             "talents": [],
@@ -22,7 +22,7 @@
         }
     },
     {
-        "id": 1,
+        "pk": 1,
         "model": "people.Artist",
         "fields": {
             "person_ptr_id": 1,
@@ -31,7 +31,7 @@
         }
     },
     {
-        "id": 2,
+        "pk": 2,
         "model": "people.Artist",
         "fields": {
             "person_ptr_id": 2,

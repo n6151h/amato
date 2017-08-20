@@ -1,40 +1,220 @@
 [
-  {
-    "model": "library.Book",
-    "pk": 1,
-    "fields": {
-      "title": "Don Giovanni",
-      "publisher": "Ricordi",
-      "published": 1787,
-      "synopsis": "yadda yadda yadda"
+    {
+        "model": "library.Book",
+        "pk": 1,
+        "fields": {
+            "title": "Don Giovanni",
+            "publisher": "Ricordi",
+            "published": 1787,
+            "synopsis": "yadda yadda yadda"
+        }
+    },
+    {
+        "model": "library.Opera",
+        "pk": 1,
+        "book_ptr_id": 1,
+        "fields": {
+            "composer": "Mozart, Wolfgang, Amadeus",
+            "librettist": "Da Ponte, Lorenzo"
+        }
+    },
+    {
+        "model": "library.Book",
+        "pk": 2,
+        "fields": {
+            "title": "L'Elisir d'Amore",
+            "publisher": "Ricordi",
+            "published": 1836,
+            "synopsis": "blah blah"
+        }
+    },
+    {
+        "model": "library.Opera",
+        "pk": 2,
+        "book_ptr_id": 2,
+        "fields": {
+            "composer": "Donezetti, Gaetano",
+            "librettist": "Romani, Felice"
+        }
+    },
+    {
+        "model": "library.Role",
+        "pk": 1,
+        "fields": {
+            "book": 1,
+            "name": "Don Giovanni",
+            "description": "dissolute nobleman",
+            "role_type": "singing"
+        }
+    },
+    {
+        "model": "library.OperaticRole",
+        "pk": 1,
+        "fields": {
+            "voice": "baritone",
+            "fach": "unspecified"
+        }
+    },
+    {
+        "model": "library.Role",
+        "pk": 2,
+        "fields": {
+            "book": 1,
+            "name": "Don Ottavio",
+            "description": "schmuck",
+            "role_type": "singing"
+        }
+    },
+    {
+        "model": "library.OperaticRole",
+        "pk": 2,
+        "fields": {
+            "voice": "tenor",
+            "fach": "unspecified"
+        }
+    },
+    {
+        "model": "library.Role",
+        "pk": 3,
+        "fields": {
+            "book": 1,
+            "name": "Donna Anna",
+            "description": "noblewoman",
+            "role_type": "singing"
+        }
+    },
+    {
+        "model": "library.OperaticRole",
+        "pk": 3,
+        "fields": {
+            "voice": "soprano",
+            "fach": "unspecified"
+        }
+    },
+    {
+        "model": "library.Role",
+        "pk": 4,
+        "fields": {
+            "book": 1,
+            "name": "Donna Elvira",
+            "description": "noblewoman",
+            "role_type": "singing"
+        }
+    },
+    {
+        "model": "library.OperaticRole",
+        "pk": 4,
+        "fields": {
+            "voice": "mezzo",
+            "fach": "unspecified"
+        }
+    },
+    {
+        "model": "library.Role",
+        "pk": 5,
+        "fields": {
+            "book": 1,
+            "name": "Leporello",
+            "description": "Don Giovanni's servant",
+            "role_type": "singing"
+        }
+    },
+    {
+        "model": "library.OperaticRole",
+        "pk": 5,
+        "fields": {
+            "voice": "baritone",
+            "fach": "unspecified"
+        }
+    },
+    {
+        "model": "library.Role",
+        "pk": 7,
+        "fields": {
+            "book": 1,
+            "name": "Zerlina",
+            "description": "a peaasant, engaged to Masetto",
+            "role_type": "singing"
+        }
+    },
+    {
+        "model": "library.OperaticRole",
+        "pk": 7,
+        "fields": {
+           "voice": "soprano",
+            "fach": "unspecified"
+        }
+    },
+    {
+        "model": "library.Role",
+        "pk": 6,
+        "fields": {
+            "book": 1,
+            "name": "Masetto",
+            "description": "a peaasant",
+            "role_type": "singing"
+        }
+    },
+    {
+        "model": "library.OperaticRole",
+        "pk": 6,
+        "fields": {
+            "voice": "baritone",
+            "fach": "unspecified"
+        }
+    },
+    {
+        "model": "library.Role",
+        "pk": 8,
+        "fields": {
+            "book": 2,
+            "name": "Nemorino",
+            "description": "country bumpkin",
+            "role_type": "singing"
+        }
+    },
+    {
+        "model": "library.OperaticRole",
+        "pk": 8,
+        "fields": {
+            "voice": "tenor",
+            "fach": "unspecified"
+        }
+    },
+    {
+        "model": "library.Role",
+        "pk": 9,
+            "fields": {
+            "book": 2,
+            "name": "Adina",
+            "description": "noblewoman",
+            "role_type": "singing"
+        }
+    },
+    {
+        "model": "library.OperaticRole",
+        "pk": 9,
+            "fields": {
+           "voice": "soprano",
+            "fach": "coloratura"
+        }
+    },
+    {
+        "model": "library.Role",
+        "pk": 10,
+        "fields": {
+            "book": 2,
+            "name": "Belcore",
+            "description": "army sargeant",
+            "role_type": "singing"
+        }
+    },
+    {
+        "model": "library.OperaticRole",
+        "pk": 10,
+        "fields": {
+            "voice": "baritone",
+            "fach": "unspecified"
+        }
     }
-  },
-  {
-    "model": "library.Opera",
-    "pk": 1,
-    "book_ptr_id": 1,
-    "fields": {
-        "composer": "Mozart, Wolfgang, Amadeus",
-        "librettist": "Da Ponte, Lorenzo"
-    }
-  },
-  {
-    "model": "library.Book",
-    "pk": 2,
-    "fields": {
-        "title": "L'Elisir d'Amore",
-        "publisher": "Ricordi",
-        "published": 1836,
-        "synopsis": "blah blah"
-    }
-  },
-  {
-    "model": "library.Opera",
-    "pk": 2,
-    "book_ptr_id": 2,
-    "fields": {
-        "composer": "Donezetti, Gaetano",
-        "librettist": "Romani, Felice"
-    }
-  }
- ]
+]

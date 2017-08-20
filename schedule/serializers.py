@@ -1,13 +1,9 @@
 from rest_framework import serializers
+from enumchoicefield import ChoiceEnum, EnumChoiceField
 
 from .models import *
 
 class SeasonSerializer(serializers.ModelSerializer):
-
-    #book = serializers.PrimaryKeyRelatedField(many=True,
-    #                        queryset=Book.objects.all())
-    #        view_name='opera-score') #,
-    #    read_only=True)
 
     class Meta:
         model = Season
@@ -15,19 +11,11 @@ class SeasonSerializer(serializers.ModelSerializer):
 
 class ProductionSerializer(serializers.ModelSerializer):
 
-    #book = serializers.HyperlinkedRelatedField(
-    #    view_name='opera-score',
-    #    read_only=True)
-
     class Meta:
         model = Production
         fields = '__all__'
 
 class ShowSerializer(serializers.ModelSerializer):
-
-    #book = serializers.HyperlinkedRelatedField(
-    #    view_name='opera-score',
-    #    read_only=True)
 
     class Meta:
         model = Show
@@ -35,11 +23,8 @@ class ShowSerializer(serializers.ModelSerializer):
 
 class CallSerializer(serializers.ModelSerializer):
 
-    #book = serializers.HyperlinkedRelatedField(
-    #    view_name='opera-score',
-    #    read_only=True)
-
     class Meta:
         model = Call
         fields = '__all__'
 
+    type = EnumChoiceField(enum_class=CallTypes)
