@@ -37,20 +37,20 @@ Concepts and General Structure
 
 The project consists of several django apps: *people, library, talent, schedule,* and *company.
 
-###People and Library###
+### People and Library
 
 At it's core, an opera company like the **Amato Opera Theatre** has a roster of artists (singers) an a repetoire of operas that it trains the singers to perform and appear in.  Scheduling amounts to matching up the singer with appropriate roles for a given performance.  Hence, the repetoire is represented in the *library* app models as subclasses of *book* (``Opera, Musical, Script``) and the artist models (``Person, Artist``) are found in the *people* app.
 
-###Talent###
+### Talent
 
 Instead of having subclasses for different kinds of artists, I took a page from *Design Patterns* and made talents like singing and dancing a "has a" attribute, rather than an "is a" attribute.  Thus, an *Artist* can have one or more ``talents`` which are represented by a foreign key relationship with the *Talent* model.  This inludes numerous subclasses including ``Singer``, ``Dancer``, and so forth.
 
-###Schedule###
+### Schedule
 
 The schedule is where these all come together to form casts for
 ``Show`` instance, which are contained in ``Production`` instances.
 
-###Company###
+### Company
 
 I thought I might perhaps turn this into a website that many companies could use, each having their own libraries, artists, and schedule.   The ``Company`` model exists to contain schedules, as well as hold information that pertains to the company as a whole, such as the names of the artistic director, general manager, board, and the roster(s) of artists, staff, and crew.
 
