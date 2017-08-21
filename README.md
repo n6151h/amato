@@ -5,7 +5,7 @@ Web application for managing (small-to-midsized) opera and theatre companies.   
 *[Amato Opera Theatre](https://en.wikipedia.org/wiki/Amato_Opera)*
 which he started in 1948 and ran for 61 consequtive seasons.
 
-![Antonio "Tony" Amato (1920-2011)](https://github.com/n6151h/amato/amato/tonyback.jpg "Tony Amato")
+![Antonio "Tony" Amato (1920-2011)](https://github.com/n6151h/amato/tree/master/amato/tonyback.jpg "Tony Amato")
 
 A Little bit of History
 -----------------------
