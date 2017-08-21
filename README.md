@@ -1,7 +1,7 @@
 AMATO
 =====
 
-Web application for managing (small-to-midsized) opera and theatre companies.   The name is an acronym -- *A*ppliation for *M*anaging *A*ll of *T*ony's *O*peras.  _Tony_ is Anthony Amato, founder of the
+Web application for managing (small-to-midsized) opera and theatre companies.   The name is an acronym -- **A**pplication for **M**anaging **A**ll of **T**ony's **O**peras.  _Tony_ is Anthony Amato, founder of the
 *[Amato Opera Theatre](https://en.wikipedia.org/wiki/Amato_Opera)*
 which he started in 1948 and ran for 61 consequtive seasons.
 
