@@ -22,3 +22,35 @@ For each production, Tony producted a table that looked something like this:
 | Goro           | Tony       | Tony       |     |
 | The Bonze      | Nhostovsky | Milnes     |     |
 | Kate Pinkerton | Joli       | Diaz       |     |
+
+
+Tony did this on paper and it was Irene's idea that this could somehow be automated by turning it into a spreadsheet.  The simple way to do this would be to just get Tony to learn how to use Excel or Google spreadsheet or any other kind of software.  Simple, sure.  Easy, not so much.   Tony was in his mid-80s by this time, and though he was still a very energtic 80-something (between productions he could be found high up on a tall ladder adjusting lights for the next production), he was very "old school" when it came to IT.
+
+At around the same time, I was looking for a project I could use to teach myself java generics, and this looked to be as good as any.  The result was the original [AMATO](https://github.com/n6151h/amato-java).   This didn't use a DBMS of any sort.  Rather, it maintained everything in an XML-encoded flat file that it read in on start-up and updated when the program modified it.
+
+Irene was beta-testing this when Tony made the decision to shut down the theatre at the start of 2009, so it was never fully-deployed.  I stopped work on it then, and it sat in my archives for several years.
+
+Since then I've done a good bit of work with Python ORMs and web framworks (pylons, pyramid, django, sqlalchemy), and I've recently started doing more operatic work with some of the small companies around Melbourne.  Hence, I've decided to redesign AMATO as a django project.
+
+Concepts and General Structure
+-------------------------------
+
+The project consists of several django apps: *people, library, talent, schedule,* and *company.
+
+###People and Library###
+
+At it's core, an opera company like the **Amato Opera Theatre** has a roster of artists (singers) an a repetoire of operas that it trains the singers to perform and appear in.  Scheduling amounts to matching up the singer with appropriate roles for a given performance.  Hence, the repetoire is represented in the *library* app models as subclasses of *book* (``Opera, Musical, Script``) and the artist models (``Person, Artist``) are found in the *people* app.
+
+###Talent###
+
+Instead of having subclasses for different kinds of artists, I took a page from *Design Patterns* and made talents like singing and dancing a "has a" attribute, rather than an "is a" attribute.  Thus, an *Artist* can have one or more ``talents`` which are represented by a foreign key relationship with the *Talent* model.  This inludes numerous subclasses including ``Singer``, ``Dancer``, and so forth.
+
+###Schedule###
+
+The schedule is where these all come together to form casts for
+``Show`` instance, which are contained in ``Production`` instances.
+
+###Company###
+
+I thought I might perhaps turn this into a website that many companies could use, each having their own libraries, artists, and schedule.   The ``Company`` model exists to contain schedules, as well as hold information that pertains to the company as a whole, such as the names of the artistic director, general manager, board, and the roster(s) of artists, staff, and crew.
+
