@@ -117,18 +117,25 @@ class Show(models.Model):
     production = models.ForeignKey(Production, related_name='shows')
     curtain = models.DateTimeField()
 
+    def __str__(self):
+        return "{} ({})".format(self.production.book.title,
+                                self.curtain)
+
+    def __unicode__(self):
+        return "{} ({})".format(self.production.book.title,
+                                self.curtain)
 
 # The following are positions within a production that can (and often
 # do) vary from show to show.
 
 class Conductor(models.Model):
-    person = models.ForeignKey(pm.Artist, related_name="conductors",
+    person = models.ForeignKey(pm.Artist, related_name="conducted",
                                on_delete=models.CASCADE)
     show = models.OneToOneField(Show, related_name="conductor",
                              on_delete=models.CASCADE)
 
 class StageManager(models.Model):
-    person = models.ForeignKey(pm.Artist, related_name="stage_managers",
+    person = models.ForeignKey(pm.Artist, related_name="stage_managed",
                                on_delete=models.CASCADE)
     show = models.OneToOneField(Show, related_name="stage_manager",
                              on_delete=models.CASCADE)
@@ -155,7 +162,7 @@ class CrewMember(models.Model):
 class Orchestra(models.Model):
     show = models.ForeignKey(Show, related_name='orchestra',
                              on_delete=models.CASCADE)
-    musician = models.ForeignKey(pm.Person, related_name='orchestra',
+    musician = models.ForeignKey(pm.Person, related_name='played',
                              on_delete=models.CASCADE)
 
 

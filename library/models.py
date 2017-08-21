@@ -111,6 +111,13 @@ class Role(models.Model):
     role_type = EnumChoiceField(RoleTypeEnum,
                                 default=RoleTypeEnum.unspecified)
 
+    def __str__(self):
+        return "{} ({})".format(self.name, self.description)
+
+    def __unicode__(self):
+        return "{} ({})".format(self.name, self.description)
+
+
 class OperaticRole(Role):
     voice = EnumChoiceField(VoiceTypeEnum, default=VoiceTypeEnum.unspecified)
     fach = EnumChoiceField(FachEnum, default=FachEnum.unspecified)
@@ -119,8 +126,3 @@ class OperaticRole(Role):
         super(OperaticRole, self).__init__(*args, **kwargs)
         self._meta.get_field('role_type').default=RoleTypeEnum.singing
 
-    def __str__(self):
-        return "{} ({})".format(self.name, self.description)
-
-    def __unicode__(self):
-        return "{} ({})".format(self.name, self.description)

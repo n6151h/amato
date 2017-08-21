@@ -35,3 +35,9 @@ class CallViewSet(viewsets.ModelViewSet):
     queryset = Call.objects.all()
     serializer_class = CallSerializer
 
+class CastingViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows casts to be viewed or edited
+    """
+    queryset = CastMember.objects.all()
+    serializer_class = CastMemberSerializer

@@ -10,6 +10,7 @@ router.register(r'season', views.SeasonViewSet)
 router.register(r'production', views.ProductionViewSet)
 router.register(r'show', views.ShowViewSet)
 router.register(r'call', views.CallViewSet)
+router.register(r'casting', views.CastingViewSet)
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.

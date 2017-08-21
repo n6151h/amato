@@ -28,3 +28,11 @@ class CallSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     type = EnumChoiceField(enum_class=CallTypes)
+
+
+class CastMemberSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = CastMember
+        fields = '__all__'
+
