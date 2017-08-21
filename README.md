@@ -13,3 +13,12 @@ I originally started this project about ten years ago during my time with Amato 
 
 For each production, Tony producted a table that looked something like this:
 
+| Role / Date    | Fri (6/2)  | Sat (6/3)  | ... |
+|----------------|------------|------------|-----|
+| Cio-Cio-san    | Freni      | Sutherland |     |
+| Pinkerton      | Giordano   | Alagna     |     |
+| Suzuki         | Von Stade  | Horne      |     |
+| Sharpless      | Ramey      | Gobi       |     |
+| Goro           | Tony       | Tony       |     |
+| The Bonze      | Nhostovsky | Milnes     |     |
+| Kate Pinkerton | Joli       | Diaz       |     |
