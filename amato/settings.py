@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+INTERNAL_IPS = ['localhost', '127.0.0.1', ]
+
 
 # Application definition
 
@@ -37,18 +39,36 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
     'phonenumber_field',
     'localflavor',
+    'debug_toolbar',
 
+    'rest_framework',
+    'coreapi',
+    'bootstrap4',
+    'sitetree',
+    #'jquery',
+    'djangoformsetjs',
+    'markdownify',
+
+    # wiki -- don't forget to migrate!
+    #'django_nyt',
+    #'mptt',
+    #'wiki',
+    #'wiki.plugins.attachments',
+    #'wiki.plugins.notifications',
+    #'wiki.plugins.images',
+    #'wiki.plugins.macros',
+
+    # testing
+    'django_nose',
+
+    # AMATO proper ...
     'company',
     'library',
     'people',
     'schedule',
     'talent',
-
-    'rest_framework',
-    'coreapi',
 
 ]
 
@@ -61,6 +81,7 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'amato.urls'
@@ -68,15 +89,20 @@ ROOT_URLCONF = 'amato.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['amato/templates',
+        '/home/nicks/lavoro/amato/lib/python3.5/site-packages/debug_toolbar/templates',],
         'APP_DIRS': True,
         'OPTIONS': {
+            'debug': DEBUG,
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-            ],
+                "django.template.context_processors.media",
+                "django.template.context_processors.static",
+                "django.template.context_processors.tz",
+               ],
         },
     },
 ]
@@ -138,6 +164,33 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+
+]
+
+
+DEBUG_TOOLBAR_PANELS = [
+    'debug_toolbar.panels.versions.VersionsPanel',
+    'debug_toolbar.panels.timer.TimerPanel',
+    'debug_toolbar.panels.settings.SettingsPanel',
+    'debug_toolbar.panels.headers.HeadersPanel',
+    'debug_toolbar.panels.request.RequestPanel',
+    'debug_toolbar.panels.sql.SQLPanel',
+    'debug_toolbar.panels.staticfiles.StaticFilesPanel',
+    'debug_toolbar.panels.templates.TemplatesPanel',
+    'debug_toolbar.panels.cache.CachePanel',
+    'debug_toolbar.panels.signals.SignalsPanel',
+    'debug_toolbar.panels.logging.LoggingPanel',
+    'debug_toolbar.panels.redirects.RedirectsPanel',
+]
+
+DEBUG_TOOLBAR_CONFIG = {
+    'INTERCEPT_REDIRECTS': False,
+    'SHOW_TOOLBAR_CALLBACK': lambda x: DEBUG,
+}
+
 
 # Production settings have their own file to override stuff here
 try:

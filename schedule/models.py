@@ -152,6 +152,12 @@ class CastMember(models.Model):
     artist = models.ForeignKey(pm.Artist, related_name='casts',
                              on_delete=models.CASCADE)
 
+    def __str__(self):
+        return '{} as "{}"'.format(self.artist.name, self.role.name)
+
+    __unicode__ = __str__
+
+
 class CrewMember(models.Model):
     show = models.ForeignKey(Show, related_name='crew',
                              on_delete=models.CASCADE)

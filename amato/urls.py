@@ -16,9 +16,13 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
+from django.conf import settings
+
 from rest_framework.schemas import get_schema_view
 
 schema_view = get_schema_view(title='Pastebin API')
+
+from . import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -31,5 +35,12 @@ urlpatterns = [
 
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^schema/', schema_view),
+
+    url(r'^about', views.AboutView.as_view() )
 ]
 
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns = [
+        url(r'^__debug__/', include(debug_toolbar.urls)),
+    ] + urlpatterns

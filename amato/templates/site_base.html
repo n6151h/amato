@@ -1,0 +1,102 @@
+<!-- site_base.html -->
+{% load staticfiles %}
+{% load i18n %}
+{% load sitetree %}
+{# <!-- https://gist.github.com/geedmo/5682742--> #}
+<!DOCTYPE html>
+<html lang="en" class="no-js" >
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+
+    <!-- Site ownership verification tag.  Just leave it here, ok? -->
+    <meta name="google-site-verification" content="" />
+
+    {% block viewport %}
+      <!-- meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" -->
+    {% endblock %}
+    <title>{% block head_title_base %}{% if SITE_NAME %}{{ SITE_NAME }} | {% endif %}{% block head_title %}{% endblock %}{% endblock %}</title>
+
+    {% block styles %}
+      <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+      <link href="{% static 'css/amato.css' %}" rel="stylesheet">
+      <!-- link href="{% static 'pyconau2017/css/pyconau2016.css' %}" rel="stylesheet" -->
+
+      <link rel="icon" href="{% static 'images/favicon.png' %}">
+
+      <!--Meta tags-->
+      <meta name="theme-color" content="#0c486c">
+    {% endblock %}
+
+    <script type="text/javascript" src="{% static 'js/vendor/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap.js' %}"></script>
+    <script src="{% static 'js/jquery.formset.js' %}"></script>
+
+    {% block extra_head_base %}
+        {% block extra_head %}{% endblock %}
+    {% endblock %}
+  </head>
+  <body class="{% block body_class %}{% endblock %}"
+      style="background-image: url({% static 'pyconau2017/images/pyconau-2016-collage-faded.jpg' %});">
+    {% block topbar_base %}
+
+      {% block nav %}
+        {% sitetree_menu from "maint" include "trunk" template "sitetree_header.html" %}
+           <a href="#" data-menu-opener="" class="l-header--menu-opener"></a>
+        {% sitetree_menu from "main" include "trunk" template "sitetree_opener.html" %}
+      {% endblock %}
+
+    {% endblock %}
+
+    <!-- site_base block body_base -->
+    {% block body_base %}
+      <!--div style="height: 100px;" /-->
+        <!--main role="main"-->
+        <!-- site_base block body -->
+        {% block body %}
+          <div class="container">
+              <div class="row">
+                  <div class="col-md-2">
+                    {% block body_outer %}
+                    {% endblock %}
+                  </div>
+                  <div class="col-md-8" >
+                    {% block content %}
+                    {% endblock %}
+                  </div>
+                  <div class="col-md-2">
+                  </div>
+              </div>
+          </div>
+        {% endblock %}
+        <!-- site_base endblock body -->
+        <!--/main-->
+      <!--/div-->
+    {% endblock %}
+    <!-- site_base endblock body_base -->
+
+    {% block footer_base %}
+      <!-- https://gist.github.com/geedmo/5682742-->
+      <!-- footer class="l-footer l-footer__alt" -->
+        {% block footer %}
+        {% endblock %}
+      <!-- /footer -->
+    {% endblock %}
+
+    {% block scripts %}
+      {% block extra_script %}
+      {% endblock %}
+    {% endblock %}
+
+    {% block extra_body_base %}
+      {% block analytics %}
+	     {% include "analytics.html" %}
+      {% endblock %}
+
+      {% block extra_body %}
+      {% endblock %}
+    {% endblock %}
+  </body>
+</html>
+<!-- end site_base.html -->

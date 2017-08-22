@@ -1,0 +1,24 @@
+{% load sitetree %}
+<nav id="LOL" class="l-header--links">
+  <ul>
+  {% for item in sitetree_items %}
+    <li class="l-header--nav">
+      <a
+        href="{% if item.has_children %}#{% else %}{% sitetree_url for item %}{% endif %}"
+        {% if item.has_children %}
+          class="l-header--nav dropdown-toggle {% if item.is_current or item.in_current_branch %}active{% endif %}" data-toggle="dropdown"
+        {% else %}
+          class="l-header--nav {% if item.is_current or item.in_current_branch %}active{% endif %}"
+        {% endif %}>
+        {{ item.title_resolved }}
+      </a>
+
+      {% if item.has_children %}
+        {% with is_last=forloop.last %}
+          {% sitetree_children of item for menu template "sitetree_header_dropdown.html" %}
+        {% endwith %}
+      {% endif %}
+    </li>
+  {% endfor %}
+  </ul>
+</nav>

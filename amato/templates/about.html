@@ -1,0 +1,17 @@
+{% extends "site_base.html" %}
+{% load sitetree %}
+{% block header %}
+{% endblock %}
+{% block navbar %}
+<div class="navbar">
+    <a class="brand" href="/">My Site</a>
+    <div class="navbar-inner">
+        {% sitetree_menu from "maintree" include "topmenu" template "sitetree/menu_bootstrap.html" %}
+        {% sitetree_breadcrumbs from "maintree" %}
+
+     </div>
+</div>
+{% endblock %}
+{% block body %}
+<h1>It worked!</h1>
+{% endblock %}
