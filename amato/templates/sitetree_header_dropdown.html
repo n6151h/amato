@@ -1,0 +1,18 @@
+{% load sitetree %}
+
+<div class="menu-dropdown {% if is_last%}menu-dropdown__last{% endif %}">
+  <ul class="link-list" role="menu">
+      {% for item in sitetree_items %}
+          <li class="link-list--item">
+            <a role="menuitem" href="{% sitetree_url for item %}"
+              class="link-list--link"
+              {% if item.hint %}
+                title="{{ item.hint }}"
+              {% endif %}
+              >
+                {{ item.title_resolved }}
+            </a>
+          </li>
+      {% endfor %}
+  </ul>
+</div>

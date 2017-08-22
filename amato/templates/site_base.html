@@ -20,8 +20,9 @@
 
     {% block styles %}
       <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+      <link href="{% static 'css/app.css' %}" rel="stylesheet">
+      <link href="{% static 'css/print.css' %}" rel="stylesheet">
       <link href="{% static 'css/amato.css' %}" rel="stylesheet">
-      <!-- link href="{% static 'pyconau2017/css/pyconau2016.css' %}" rel="stylesheet" -->
 
       <link rel="icon" href="{% static 'images/favicon.png' %}">
 
@@ -29,7 +30,7 @@
       <meta name="theme-color" content="#0c486c">
     {% endblock %}
 
-    <script type="text/javascript" src="{% static 'js/vendor/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/bootstrap.js' %}"></script>
     <script src="{% static 'js/jquery.formset.js' %}"></script>
 
@@ -38,11 +39,11 @@
     {% endblock %}
   </head>
   <body class="{% block body_class %}{% endblock %}"
-      style="background-image: url({% static 'pyconau2017/images/pyconau-2016-collage-faded.jpg' %});">
+      style="background-image: url({% static 'images/amato-bg.png' %});">
     {% block topbar_base %}
 
       {% block nav %}
-        {% sitetree_menu from "maint" include "trunk" template "sitetree_header.html" %}
+        {% sitetree_menu from "main" include "trunk" template "sitetree_header.html" %}
            <a href="#" data-menu-opener="" class="l-header--menu-opener"></a>
         {% sitetree_menu from "main" include "trunk" template "sitetree_opener.html" %}
       {% endblock %}
@@ -57,15 +58,15 @@
         {% block body %}
           <div class="container">
               <div class="row">
-                  <div class="col-md-2">
+                  <div class="col-md-1">
                     {% block body_outer %}
                     {% endblock %}
                   </div>
-                  <div class="col-md-8" >
+                  <div class="col-md-10" >
                     {% block content %}
                     {% endblock %}
                   </div>
-                  <div class="col-md-2">
+                  <div class="col-md-1">
                   </div>
               </div>
           </div>

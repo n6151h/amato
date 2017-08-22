@@ -47,7 +47,6 @@ INSTALLED_APPS = [
     'coreapi',
     'bootstrap4',
     'sitetree',
-    #'jquery',
     'djangoformsetjs',
     'markdownify',
 
