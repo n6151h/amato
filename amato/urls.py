@@ -27,16 +27,18 @@ from . import views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
 
-    url(r'^company/', include('company.urls', namespace="company")),
-    url(r'^library/', include('library.urls', namespace="library")),
-    url(r'^people/', include('people.urls', namespace="people")),
-    url(r'^schedule/', include('schedule.urls', namespace="schedule")),
-    url(r'^talent/', include('talent.urls', namespace="talent")),
+    url(r'^api/', include('amato.api', namespace="api")),
 
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^schema/', schema_view),
 
-    url(r'^about', views.AboutView.as_view() )
+    url(r'^about/', views.AboutView.as_view() ),
+
+    url(r'^people/', views.PeopleView.as_view()),
+    url(r'^talents/', views.TalentsView.as_view()),
+    url(r'^schedule/', views.ScheduleView.as_view()),
+
+    url(r'^', views.HomeView.as_view()),
 ]
 
 if settings.DEBUG:

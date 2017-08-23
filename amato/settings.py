@@ -25,10 +25,11 @@ SECRET_KEY = 'tfd(ps+se$f1f-%_a0)_fq-wop6ppy0i761=mwx8ff(kciyaxu'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', ]
 
 INTERNAL_IPS = ['localhost', '127.0.0.1', ]
 
+LOGIN_URL = '/account/login/'
 
 # Application definition
 
@@ -88,8 +89,8 @@ ROOT_URLCONF = 'amato.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['amato/templates',
-        '/home/nicks/lavoro/amato/lib/python3.5/site-packages/debug_toolbar/templates',],
+        'DIRS': ['amato/templates',],
+        #'/home/nicks/lavoro/amato/lib/python3.5/site-packages/debug_toolbar/templates',],
         'APP_DIRS': True,
         'OPTIONS': {
             'debug': DEBUG,

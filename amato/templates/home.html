@@ -1,0 +1,15 @@
+{% extends "site_base.html" %}
+
+{% block content %}
+<h1>AMATO Home</h1>
+
+<div class="form-group">
+<Label for="company-sel">Company:</Label>
+<select class="form-control" id="company-sel">
+{% for company in companies %}
+<option>company.name</option>
+{% endfor %}
+</select>
+</div>
+
+{% endblock %}

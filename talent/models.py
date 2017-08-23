@@ -63,6 +63,11 @@ class Singing(Talent):
     A subtype of talent that includes musicians whose instrument is
     "voice".
     '''
+
+    def __init__(self, *args, **kwargs):
+        super(Singing, self).__init__(*args,
+                        category=TalentCategoryEnum.singing, **kwargs)
+
     voice = EnumChoiceField(VoiceTypeEnum,
                             default=VoiceTypeEnum.unspecified,
                             verbose_name="Voice Type")
