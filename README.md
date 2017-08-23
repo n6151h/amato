@@ -5,7 +5,7 @@ Web application for managing (small-to-midsized) opera and theatre companies.   
 *[Amato Opera Theatre](https://en.wikipedia.org/wiki/Amato_Opera)*
 which he started in 1948 and ran for 61 consequtive seasons.
 
- ![Antonio "Tony" Amato (1920-2011)](https://github.com/n6151h/amato/tree/master/amato/tonyback.jpg)
+ ![Antonio "Tony" Amato (1920-2011)](/amato/tonyback.jpg)
 
 
 A Little bit of History
@@ -63,7 +63,7 @@ How It Might (Eventually) Work
 
 Here's a rough sketch of what the main scheduling page might look like.  THe user would select the company, season, and production from drop-down menus (indicated with the "v" on the right-hand side of the drop-down button).
 
-  ![A rough sketch](https://github.com/n6151h/amato/tree/master/amato/main-idea-sketch.jpg)
+  ![A rough sketch](/amato/main-idea-sketch.jpg)
 
 The drop-downs are dynamic, populated as each of the "superior" objects are selected.  (E.g., Once **Company** is selected, the **Season** drop-down is populated for that company's seasons.  Selecting the **Season** will then populate the **Production** drop-down.)
 
