@@ -15,15 +15,15 @@ I originally started this project about ten years ago during my time with Amato 
 
 For each production, Tony producted a table that looked something like this:
 
-| Role / Date    | Fri (6/2)  | Sat (6/3)  | ... |
-|----------------|------------|------------|-----|
-| Cio-Cio-san    | Freni      | Sutherland |     |
-| Pinkerton      | Giordano   | Alagna     |     |
-| Suzuki         | Von Stade  | Horne      |     |
-| Sharpless      | Ramey      | Gobi       |     |
-| Goro           | Tony       | Tony       |     |
-| The Bonze      | Nhostovsky | Milnes     |     |
-| Kate Pinkerton | Joli       | Diaz       |     |
+| Role / Date      | Fri (6/2)  | Sat (6/3)  | ... |
+|------------------|------------|------------|-----|
+| _Cio-Cio-san_    | Freni      | Sutherland |     |
+| _Pinkerton_      | Giordano   | Alagna     |     |
+| _Suzuki_         | Von Stade  | Horne      |     |
+| _Sharpless_      | Ramey      | Gobi       |     |
+| _Goro_           | Tony       | Tony       |     |
+| _The Bonze_      | Nhostovsky | Milnes     |     |
+| _Kate Pinkerton_ | Joli       | Diaz       |     |
 
 
 Tony did this on paper and it was Irene's idea that this could somehow be automated by turning it into a spreadsheet.  The simple way to do this would be to just get Tony to learn how to use Excel or Google spreadsheet or any other kind of software.  Simple, sure.  Easy, not so much.   Tony was in his mid-80s by this time, and though he was still a very energtic 80-something (between productions he could be found high up on a tall ladder adjusting lights for the next production), he was very "old school" when it came to IT.
