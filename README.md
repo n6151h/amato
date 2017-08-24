@@ -13,17 +13,10 @@ A Little bit of History
 
 I originally started this project about ten years ago during my time with Amato Opera when Irene Kim, Tony's niece, asked if I could write a program that would help her keep track of the performance schedule.   Amato Opera was basically a school of opera and repertory company rolled into one organisation. They produced five operas each season.  Each production had 12 to 15 shows, with each show having, potentially, a different cast from any of the others.  Thus, there were many opportunities for emerging singers to learn and perform many operatic roles.  It also made scheduling all of those performances into what any normal person would call a nightmare, but what to Tony was simply magic that he more or less did in his head.
 
-For each production, Tony producted a table that looked something like this:
+For each production, Tony producted a table (using pencil and paper) that Irene then reproduced in a Word document looking like this:
 
-| Role / Date      | Fri (6/2)  | Sat (6/3)  | ... |
-|------------------|------------|------------|-----|
-| _Cio-Cio-san_    | Freni      | Sutherland |     |
-| _Pinkerton_      | Giordano   | Alagna     |     |
-| _Suzuki_         | Von Stade  | Horne      |     |
-| _Sharpless_      | Ramey      | Gobi       |     |
-| _Goro_           | Tony       | Tony       |     |
-| _The Bonze_      | Nhostovsky | Milnes     |     |
-| _Kate Pinkerton_ | Joli       | Diaz       |     |
+
+ ![Sample Amato Opera Schedule](/amato/amato-schedule.png)
 
 
 Tony did this on paper and it was Irene's idea that this could somehow be automated by turning it into a spreadsheet.  The simple way to do this would be to just get Tony to learn how to use Excel or Google spreadsheet or any other kind of software.  Simple, sure.  Easy, not so much.   Tony was in his mid-80s by this time, and though he was still a very energtic 80-something (between productions he could be found high up on a tall ladder adjusting lights for the next production), he was very "old school" when it came to IT.

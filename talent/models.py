@@ -50,7 +50,8 @@ class Talent(models.Model):
     Describes a company members abilities.
     '''
     category = EnumChoiceField(TalentCategoryEnum,
-                               default=TalentCategoryEnum.unspecified)
+                               default=TalentCategoryEnum.unspecified,
+                               unique=True)
 
     def __str__(self):
         return self.category.name
