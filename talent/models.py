@@ -52,18 +52,6 @@ class DancingStyleEnum(ChoiceEnum):
     exotic = "exotic"
 
 
-class TalentManager(PolymorphicManager):
-    '''
-    Mainly here to override the ``create`` method to ensure
-    we don't create duplicate talents in the DB.
-    '''
-    def create(self, *args, **kwargs):
-        t = self.non_polymorphic().filter(**kwargs).first()
-        if t:
-            raise IntegrityError('<{}: {}> already exists'.format(self.model.__qualname__, t))
-        return super(TalentManager, self).create(*args, **kwargs)
-
-
 
 class Talent(PolymorphicModel):
     '''
@@ -73,7 +61,7 @@ class Talent(PolymorphicModel):
                                max_length=50,
                                default=TalentCategoryEnum.unspecified)
 
-    objects = TalentManager()
+    #objects = TalentManager()
 
     def __str__(self):
         return self.category.name
@@ -82,17 +70,20 @@ class Talent(PolymorphicModel):
         return self.category.name
 
 
-    # def save(self):
-    #     '''
-    #     We overload this so that we don't inadverntently save multiple instances.
-    #     Found I had to do this b/c the admin interface doesn't seem to use
-    #     the TalentManager.create method.  Rather, in creates an instance and then
-    #     calls ``save``.
-    #     '''
-    #     t = self.non_polymorphic().filter(**kwargs).first()
-    #     if t:
-    #         raise IntegrityError('<{}: {}> already exists'.format(self.model.__qualname__, t))
-    #     return super(Talent, self).save()
+    def save(self, **kwargs):
+        '''
+        We overload this so that we don't inadverntently save multiple instances.
+        Found I had to do this b/c the admin interface doesn't seem to use
+        the TalentManager.create method.  Rather, in creates an instance and then
+        calls ``save``.
+        '''
+        fields = dict([(f.name, getattr(self, f.name)) \
+                      for f in self._meta.fields \
+                        if not f.is_relation and (getattr(self, f.name) is not None)])
+        t = self.__class__.objects.non_polymorphic().filter(**fields)
+        if t:
+            raise IntegrityError('<{}: {}> already exists'.format(self.__class__.__name__, t))
+        return super(Talent, self).save(**kwargs)
 
 
 
