@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'phonenumber_field',
     'localflavor',
     'debug_toolbar',
+    'django_extensions',
 
     'rest_framework',
     'coreapi',

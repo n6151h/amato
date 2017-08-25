@@ -8,34 +8,39 @@ from polymorphic.admin import (
 
 from talent.models import *
 
-# class ModelAChildAdmin(PolymorphicChildModelAdmin):
-#     """ Base admin class for all child models """
-#     base_model = ModelA
+class TalentSubclassAdmin(PolymorphicChildModelAdmin):
+    """ Base admin class for all child models """
+    base_model = Talent
 
-#     # By using these `base_...` attributes instead of the regular ModelAdmin `form` and `fieldsets`,
-#     # the additional fields of the child models are automatically added to the admin form.
-#     base_form = ...
-#     base_fieldsets = (
-#         ...
-#     )
-
-
-# @admin.register(ModelB)
-# class ModelBAdmin(ModelAChildAdmin):
-#     base_model = ModelB
-#     # define custom features here
+    # By using these `base_...` attributes instead of the regular ModelAdmin `form` and `fieldsets`,
+    # the additional fields of the child models are automatically added to the admin form.
+    #base_form = ...
+    #base_fieldsets = (
+    #    ...
+    #)
 
 
-# @admin.register(ModelC)
-# class ModelCAdmin(ModelBAdmin):
-#     base_model = ModelC
-#     show_in_index = True  # makes child model admin visible in main admin site
-#     # define custom features here
+@admin.register(Singing)
+class SingingAdmin(TalentSubclassAdmin):
+    base_model = Singing
+    show_in_index = True
 
 
-# @admin.register(ModelA)
-# class ModelAParentAdmin(PolymorphicParentModelAdmin):
-#     """ The parent model admin """
-#     base_model = ModelA
-#     child_models = (ModelB, ModelC)
-#     list_filter = (PolymorphicChildModelFilter,)  # This is optional.
+@admin.register(Dancing)
+class DancingAdmin(TalentSubclassAdmin):
+    base_model = Dancing
+    show_in_index = True
+
+
+@admin.register(Orchestra)
+class OrchestraAdmin(TalentSubclassAdmin):
+    base_model = Orchestra
+    show_in_index = True
+
+
+@admin.register(Talent)
+class TalentAdmin(PolymorphicParentModelAdmin):
+    """*Talent* model admin"""
+    base_model = Talent
+    child_models = (Singing, Dancing, Orchestra)
+    list_filter = (PolymorphicChildModelFilter,)  # This is optional.

@@ -10,13 +10,20 @@ defined in the _schedule_ app.
 from __future__ import unicode_literals
 
 from django.db import models
+
+from django.db.utils import IntegrityError
+
+from polymorphic.models import PolymorphicModel
+from polymorphic.manager import PolymorphicManager
+from polymorphic.showfields import ShowFieldType
+
 from django.utils.translation import ugettext_lazy as _
 from phonenumber_field.modelfields import PhoneNumberField
 
 from talent.models import Talent
 
 
-class Person(models.Model):
+class Person(PolymorphicModel):
     '''
     Basic but essential information about a person.  This is by and large
     an abstract class for the other models defined herein.

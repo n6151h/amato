@@ -82,6 +82,20 @@ class Talent(PolymorphicModel):
         return self.category.name
 
 
+    # def save(self):
+    #     '''
+    #     We overload this so that we don't inadverntently save multiple instances.
+    #     Found I had to do this b/c the admin interface doesn't seem to use
+    #     the TalentManager.create method.  Rather, in creates an instance and then
+    #     calls ``save``.
+    #     '''
+    #     t = self.non_polymorphic().filter(**kwargs).first()
+    #     if t:
+    #         raise IntegrityError('<{}: {}> already exists'.format(self.model.__qualname__, t))
+    #     return super(Talent, self).save()
+
+
+
 
 # The following subclasses of Talent have specific, additional attributes.
 # Other subclasses might be added later.  But, for now, an actor is and actor
