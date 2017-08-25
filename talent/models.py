@@ -61,8 +61,6 @@ class Talent(PolymorphicModel):
                                max_length=50,
                                default=TalentCategoryEnum.unspecified)
 
-    #objects = TalentManager()
-
     def __str__(self):
         return self.category.name
 
