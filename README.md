@@ -30,7 +30,7 @@ Since then I've done a good bit of work with Python ORMs and web framworks (pylo
 Concepts and General Structure
 -------------------------------
 
-The project consists of several django apps: *people, library, talent, schedule,* and *company.
+The project consists of several django apps: *people, library, talent,* and *schedule*.
 
 ### People and Library
 
@@ -45,9 +45,10 @@ Instead of having subclasses for different kinds of artists, I took a page from 
 The schedule is where these all come together to form casts for
 ``Show`` instances, which are contained in ``Production`` instances.
 
-### Company and Season
+### Season
 
-I thought I might perhaps turn this into a website that many companies could use, each having their own libraries, artists, and schedule.   The ``Company`` model exists to contain schedules, as well as hold information that pertains to the company as a whole, such as the names of the artistic director, general manager, board, and the roster(s) of artists, staff, and crew.
+I thought I might perhaps turn this into a website that many companies could use, each having their own libraries, artists, and schedule.  I have since decided that it is far
+easier to simply run multiple sites -- perhaps hosted on the same machine -- rather than try to reinvent the wheel and manage what are effectively separate sites from within this system.
 
 Companies organise groups of productions into *Season*s, which may or may not coincide with calendar time periods such as years or actual season (e.g. Spring).  Most companies in the US run regular seasons from September through June, say, consisting of several productions, each putting up 1 or more performances. There might also be a Summer season during which the company may take some of its repetoire on tour.  Companies in Australia, on the other hand, may have several seasons during the year, each of which including some number of perfomances of just one production.
 
