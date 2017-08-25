@@ -3,7 +3,7 @@ AMATO
 
 Web application for managing (small-to-midsized) opera and theatre companies.   The name is an acronym -- **A**pplication for **M**anaging **A**ll of **T**ony's **O**peras.  _Tony_ is Anthony Amato, founder of the
 *[Amato Opera Theatre](https://en.wikipedia.org/wiki/Amato_Opera)*
-which he started in 1948 and ran for 61 consequtive seasons.
+which he started with his wife, Sally, in 1948 and ran for 61 consequtive seasons.
 
  ![Antonio "Tony" Amato (1920-2011)](/amato/tonyback.jpg)
 
@@ -67,7 +67,7 @@ Each of the slots in these performer columns are dynnamically populated from the
 
 ### Other Stuff
 
-We'd obviously need a bunch of other logic in this, such as the ability to add/modify/delete *Company*, *Season*, and *Production* instances.  We would also need similar management functions for *Library* and *Artist* instances, though, there is more information required for these, and the object classes are a bit more complicated.  (*Artist*s, for example, can have one or more *Talent*s in their bag of tricks.)
+We'd obviously need a bunch of other logic in this, such as the ability to add/modify/delete *Season*, and *Production* instances.  We would also need similar management functions for *Library* and *Artist* instances, though, there is more information required for these, and the object classes are a bit more complicated.  (*Artist*s, for example, can have one or more *Talent*s in their bag of tricks.)
 
 For simplicity, I've left out other people associated with productions like directors, set designers, choreographsers, as well as folks like conductors and stage managers for individual shows.   Furthermore, we need to pay attention to the folks in the back office who do the hard, thankless work of actually _running_ such a company, as well as the people who  work the _house_: box office and ushers.  And, let's not forget the crews: the stage hands, lighting crew, wardrobe, hair, make-up, props ... all those jobs that, sadly, no one else thinks about  or notices unless one of them does it wrong.
 
