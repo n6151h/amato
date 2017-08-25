@@ -191,6 +191,11 @@ DEBUG_TOOLBAR_CONFIG = {
     'SHOW_TOOLBAR_CALLBACK': lambda x: DEBUG,
 }
 
+# AMATO-specific settins
+COMPANY = {
+    "name": "putaojio",
+    "display_name": "PUTAOJIU Opera Company",
+}
 
 # Production settings have their own file to override stuff here
 try:

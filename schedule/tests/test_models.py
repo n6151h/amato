@@ -1,9 +1,10 @@
 from django.test import TestCase
 
+from django.conf import settings
+
 from schedule.models import *
 from people.models import *
 from library.models import *
-from company.models import *
 
 from django.db import transaction
 from django.db.utils import IntegrityError
@@ -12,29 +13,23 @@ from django.db.utils import IntegrityError
 class SeasonTestCase(TestCase):
 
     def setUp(self):
-        self.co = Company.objects.create(name="New Dork City Opera")
+        pass
 
     def test_000(self):
         '''Basic CRUD'''
 
-        s1 = Season.objects.create(company=self.co,
-                                   name="2017-2018",
+        s1 = Season.objects.create(name="2017-2018",
                                    start_date='2017-09-01',
                                    end_date='2018-06-01')
 
         s1a = Season.objects.get(name="2017-2018")
-        self.assertEqual(str(s1a), "{} ({})".format(str(self.co), s1a.name))
-
-        # Test that we can access it from the company instance.
-        self.assertIn(s1a, self.co.seasons.all())
+        self.assertEqual(str(s1a), "{} ({})".format(settings.COMPANY['display_name'], s1a.name))
 
 
 class ProductionTestCase(TestCase):
 
     def setUp(self):
-        self.co = Company.objects.create(name="New Dork City Opera")
-        Season.objects.create(company=self.co,
-                              name="2017-2018",
+        Season.objects.create(name="2017-2018",
                               start_date='2017-09-01',
                               end_date='2018-06-01')
         Opera.objects.create(title="Don Giovanni",
@@ -46,7 +41,7 @@ class ProductionTestCase(TestCase):
     def test_000(self):
         '''Basic CRUD'''
 
-        s = self.co.seasons.first()
+        s = Season.objects.first()
         p = Production.objects.create(season=s,
                                       book=Book.objects.get(title="Don Giovanni"))
 
@@ -57,10 +52,8 @@ class ProductionTestCase(TestCase):
 
 class CallTestCase(TestCase):
     def setUp(self):
-        self.co = Company.objects.create(name="New Dork City Opera")
 
-        s = Season.objects.create(company=self.co,
-                              name="2017-2018",
+        s = Season.objects.create(name="2017-2018",
                               start_date='2017-09-01',
                               end_date='2018-06-01')
 
@@ -81,7 +74,7 @@ class CallTestCase(TestCase):
 
         p = Production.objects.get(book__title="Don Giovanni")
 
-        c = Call.objects.create(dtg="2017-08-27 18:00",
+        c = Call.objects.create(dtg="2017-08-27 18:00+10:00",
                             duration="4:00:00",
                             location="Armadale Uniting",
                             production=p,
@@ -90,7 +83,7 @@ class CallTestCase(TestCase):
         c.called.add(Artist.objects.get(surname="Gosling"))
         c.save()
 
-        print (p.calls.all())
+        #print (p.calls.all())
 
 
 class ShowTestCase(TestCase):
