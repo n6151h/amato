@@ -19,7 +19,7 @@ For each production, Tony producted a table (using pencil and paper) that Irene 
  ![Sample Amato Opera Schedule](/amato/amato-schedule.png)
 
 
-Tony did this on paper and it was Irene's idea that this could somehow be automated by turning it into a spreadsheet.  The simple way to do this would be to just get Tony to learn how to use Excel or Google spreadsheet or any other kind of software.  Simple, sure.  Easy, not so much.   Tony was in his mid-80s by this time, and though he was still a very energtic 80-something (between productions he could be found high up on a tall ladder adjusting lights for the next production), he was very "old school" when it came to IT.
+Tony did this on paper and it was Irene's idea that this could somehow be automated by turning it into a spreadsheet.  The simple way to do this would be to just get Tony to learn how to use Excel or Google spreadsheet or any other kind of software.  Simple, sure.  Easy, not so much.   Tony was in his mid-80s by this time, and though he was still a very energtic octagenarian (between productions he could be found high up on a tall ladder adjusting lights for the next production), he was very "old school" when it came to IT.
 
 At around the same time, I was looking for a project I could use to teach myself java generics, and this looked to be as good as any.  The result was the original [AMATO](https://github.com/n6151h/amato-java).   This didn't use a DBMS of any sort.  Rather, it maintained everything in an XML-encoded flat file that it read in on start-up and updated when the program modified it.
 

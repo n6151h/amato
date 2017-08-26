@@ -20,13 +20,18 @@ about.  In the *schedule* models we relate *Role* to *Show* in the
 """
 
 from django.db import models
+
+from polymorphic.models import PolymorphicModel
+from polymorphic.manager import PolymorphicManager
+from polymorphic.showfields import ShowFieldType
+
 from django.utils.translation import ugettext_lazy as _
 from enumchoicefield import ChoiceEnum, EnumChoiceField
 from talent.models import VoiceTypeEnum, FachEnum
 
 from django.core.validators import MaxValueValidator, MinValueValidator
 
-class Book(models.Model):
+class Book(PolymorphicModel):
     '''
     This is more or less an abstract class that can be subclassed to
     better describe the literary element specific to a given
@@ -92,13 +97,14 @@ class Oratorio(Book):
     '''
     composer = models.CharField(max_length=100)
 
+
 class RoleTypeEnum(ChoiceEnum):
     speaking = "speaking"
     non_speaking = "non-speaking"
     singing = "singing"
     unspecified = "unspecified"
 
-class Role(models.Model):
+class Role(PolymorphicModel):
     '''
     This descripbes a member of an ensemble of actors in
     a given book.   A *Role* is matched up with a *CastMember*
