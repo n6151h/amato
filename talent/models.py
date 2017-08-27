@@ -80,9 +80,12 @@ class Talent(PolymorphicModel):
                         if not f.is_relation and (getattr(self, f.name) is not None)])
         t = self.__class__.objects.non_polymorphic().filter(**fields)
         if t:
-            raise IntegrityError('<{}: {}> already exists'.format(self.__class__.__name__, t))
+            raise IntegrityError('<{}: {}> already exists'.format(self.type, t))
         return super(Talent, self).save(**kwargs)
 
+    @property
+    def type(self):
+        return self.__class__.__name__
 
 
 
@@ -108,7 +111,7 @@ class Singing(Talent):
                            default=FachEnum.unspecified)
 
     def __str__(self):
-        result = str(self.voice)
+        result = "{}: {}".format(super(Singing, self).__str__(), str(self.voice))
         if self.fach != FachEnum.unspecified:
             result += " ({})".format(self.fach)
         return result
@@ -120,11 +123,16 @@ class Orchestra(Talent):
     '''
     A virtual subtype of *Talent* whose musical instrument is something other than their voice.
     '''
+    instrument = models.CharField(null=False, blank=True, max_length=40)
+
     def __init__(self, *args, **kwargs):
-        super(Singing, self).__init__(*args, category=TalentCategoryEnum.instrument,
+        super(Orchestra, self).__init__(*args, category=TalentCategoryEnum.instrument,
                                       **kwargs)
 
-    instrument = models.CharField(null=False, blank=True, max_length=40)
+    def __str__(self):
+        result = "{}: {}".format(super(Orchestra, self).__str__(), str(self.instrument))
+
+    __unicode__ = __str__
 
 
 class Dancing(Talent):
@@ -135,20 +143,31 @@ class Dancing(Talent):
     listed as a subset of types.  (E.g. ballet, tap, and jazz).
     '''
     def __init__(self, *args, **kwargs):
-        super(Singing, self).__init__(*args, category=TalentCategoryEnum.dancing,
+        super(Dancing, self).__init__(*args, category=TalentCategoryEnum.dancing,
                                       **kwargs)
 
     style = EnumChoiceField(DancingStyleEnum,
                             default = DancingStyleEnum.unspecified)
 
-#class Acting(Talent):
-#    '''
-#    This will include non-singing and non-dancing.
-#
-#    This will be undefined until we can come up with
-#    attributes worth making it explicit.  Otherwise
-#    the Talent model sufficies.
-#    '''
+    def __str__(self):
+        result = "{}: {}".format(super(Dancing, self).__str__(), str(self.style))
+
+    __unicode__ = __str__
+
+
+class Acting(Talent):
+    '''
+    This will include non-singing and non-dancing.
+
+    This will be undefined until we can come up with
+    attributes worth making it explicit.  Otherwise
+    the Talent model sufficies.
+    '''
+
+    def __init__(self, *args, **kwargs):
+        super(Acting, self).__init__(*args, category=TalentCategoryEnum.acging,
+                                      **kwargs)
+
 
 
 

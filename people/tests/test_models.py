@@ -28,7 +28,7 @@ class ArtistTestCase(TestCase):
 
     def setUp(self):
 
-        st = Singing.objects.create() #voice=VoiceTypeEnum.tenor)
+        st = Singing.objects.create(voice=VoiceTypeEnum.tenor)
 
         ra = Artist.objects.create(firstname="Roberto", surname="Alagna",
                               phone="", email="ralagna@operatest.com",
@@ -39,14 +39,15 @@ class ArtistTestCase(TestCase):
         ct = Singing.objects.create(voice=VoiceTypeEnum.soprano,
                                     fach=FachEnum.coloratura)
 
-        #kb = Artist.objects.create(firstname="Kathleen", surname="Battle",
-        #                      phone="445-1212", email="kathy@battle.net",
-        #                      agent="CAMI")
-        #kb.talents = [ct]
-        #kb.save()
+        kb = Artist.objects.create(firstname="Kathleen", surname="Battle",
+                              phone="445-1212", email="kathy@battle.net",
+                              agent="CAMI")
+        kb.talents = [ct]
+        kb.save()
 
 
     def test_000(self):
 
         ra = Artist.objects.get(surname="Alagna")
+        print(ra.talents.all())
         self.assertEqual(ra.talents.first().category, TalentCategoryEnum.singing)

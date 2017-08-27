@@ -1,4 +1,10 @@
 from django.shortcuts import render
+from django.core.urlresolvers import resolve
+
+try:
+    from urlparse import urlparse
+except ImportError:
+    from urllib.parse import urlparse
 
 from rest_framework import viewsets
 
@@ -56,5 +62,9 @@ class OperaticRoleViewSet(viewsets.ModelViewSet):
     serializer_class = OperaticRoleSerializer
 
     def perform_create(self, serializer):
-        opera = Opera.objects.get(pk=self.request.data['book'])
+        parts = urlparse(self.request.data.get('book'))
+        import pdb
+        pdb.set_trace()
+        opera = Opera.objects.get(pk=resolve(parts.path).kwargs['pk'])
+        #opera = Opera.objects.get(pk=self.request.data['book'])
         serializer.save(book=opera)

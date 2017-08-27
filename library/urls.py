@@ -3,6 +3,8 @@ from rest_framework import routers
 
 from . import views
 
+app_name = "library"
+
 router = routers.DefaultRouter()
 
 router.register(r'book', views.BookViewSet)

@@ -49,6 +49,10 @@ class Book(PolymorphicModel):
     def __unicode__(self):
         return "{} ({})".format(self.title, self.publisher)
 
+    @property
+    def type(self):
+        return self.__class__.__name__
+
 
 class Script(Book):
     '''
@@ -122,6 +126,10 @@ class Role(PolymorphicModel):
 
     def __unicode__(self):
         return "{} ({})".format(self.name, self.description)
+
+    @property
+    def type(self):
+        return self.__class__.__name__
 
 
 class OperaticRole(Role):

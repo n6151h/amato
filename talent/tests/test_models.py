@@ -82,4 +82,26 @@ class SingingTestCase(TestCase):
         ryan = Artist.objects.get(surname="Gosling")
         emma = Artist.objects.get(email__startswith="emma")
 
+        singing = Singing.objects.create()
+        acting = Talent.objects.create(category=TalentCategoryEnum.acting)
+
+        ryan.talents.add(singing)
+        emma.talents.add(singing)
+        emma.talents.add(acting)
+
+        self.assertIn(ryan, singing.person_set.all())
+        self.assertIn(emma, singing.person_set.all())
+
+        self.assertNotIn(ryan, acting.person_set.all())
+        self.assertIn(emma, acting.person_set.all())
+
+        self.assertIn(singing, emma.talents.all())
+        self.assertIn(acting, emma.talents.all())
+        self.assertNotIn(acting, ryan.talents.all())
+        self.assertIn(singing, ryan.talents.all())
+
+        print(emma.talents.all())
+        print(ryan.talents.all())
+
+
 

@@ -3,22 +3,15 @@ from rest_framework import serializers
 from .models import *
 
 from talent.models import Talent
+from talent.serializers import *
 
-class PersonSerializer(serializers.ModelSerializer):
-
-    talents = serializers.PrimaryKeyRelatedField(many=True,
-                                    read_only=True) #,
-                                    #view_name="talent:talent-detail")
-
-    class Meta:
-        model = Person
-        #exclude = ('talents',)
-        fields = '__all__'
 
 class ArtistSerializer(serializers.ModelSerializer):
 
-    talents = serializers.PrimaryKeyRelatedField(many=True,
-                                        read_only=True)
+    #talents = serializers.StringRelatedField(many=True, read_only=True)
+    #talents = TalentSerializer(read_only=True, many=True)
+    talents = serializers.HyperlinkedRelatedField(read_only=True, many=True,
+                                                  view_name="talents:talent-list")
 
     def get_queryset(self):
         import pdb
@@ -28,5 +21,33 @@ class ArtistSerializer(serializers.ModelSerializer):
         model = Artist
         fields = '__all__'
 
+
+class PersonSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Person
+        #exclude = ('talents',)
+        fields = '__all__'
+
+    def to_representation(self, obj):
+        """
+        Because Person is Polymorphic
+        """
+        if isinstance(obj, Artist):
+            return ArtistSerializer(obj, context=self.context).to_representation(obj)
+
+        return super(PersonSerializer, self).to_representation(obj)
+
+
+    def to_internal_value(self, data):
+        """
+        Because Person is Polymorphic
+        """
+        if data.get('type') == "Artist":
+            self.Meta.model = Artist
+            return ArtistSerializer(context=self.context).to_internal_value(data)
+
+        self.Meta.model = Person
+        return super(PersonSerializer, self).to_internal_value(data)
 
 

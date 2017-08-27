@@ -51,6 +51,10 @@ class Person(PolymorphicModel):
     def __unicode__(self):
         return self.name
 
+    @property
+    def type(self):
+        return self.__class__.__name__
+
 
 class Artist(Person):
     '''
