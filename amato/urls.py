@@ -18,11 +18,9 @@ from django.contrib import admin
 
 from django.conf import settings
 
-from rest_framework.schemas import get_schema_view
-
-schema_view = get_schema_view(title='Pastebin API')
-
 from . import views
+admin.site.site_title = "AMATO Administration"
+admin.site.site_header = "AMATO Admistration"
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -30,7 +28,6 @@ urlpatterns = [
     url(r'^api/', include('amato.api', namespace="api")),
 
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    url(r'^schema/', schema_view),
 
     url(r'^about/', views.AboutView.as_view() ),
 

@@ -25,22 +25,46 @@ class SingingAdmin(TalentSubclassAdmin):
     base_model = Singing
     show_in_index = True
 
+    exclude = ('category',)
+
+@admin.register(Voice)
+class VoiceAdmin(admin.ModelAdmin):
+    base_model = Voice
+    show_in_index = True
+
+@admin.register(Fach)
+class FachAdmin(admin.ModelAdmin):
+    base_model = Fach
+    show_in_index = True
+
+
 
 @admin.register(Dancing)
 class DancingAdmin(TalentSubclassAdmin):
     base_model = Dancing
     show_in_index = True
 
+    exclude = ('category',)
+
+@admin.register(DancingStyle)
+class DancingStyleAdmin(admin.ModelAdmin):
+    base_model = Instrument
+    show_in_index = True
 
 @admin.register(Orchestra)
 class OrchestraAdmin(TalentSubclassAdmin):
     base_model = Orchestra
     show_in_index = True
 
+    exclude = ('category',)
+
+@admin.register(Instrument)
+class InstrumentAdmin(admin.ModelAdmin):
+    base_model = Instrument
+    show_in_index = True
 
 @admin.register(Talent)
-class TalentAdmin(PolymorphicParentModelAdmin):
-    """*Talent* model admin"""
+class InstrumentAdmin(admin.ModelAdmin):
     base_model = Talent
-    child_models = (Singing, Dancing, Orchestra)
-    list_filter = (PolymorphicChildModelFilter,)  # This is optional.
+    show_in_index = False
+

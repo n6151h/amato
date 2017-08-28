@@ -65,7 +65,6 @@ INSTALLED_APPS = [
     'django_nose',
 
     # AMATO proper ...
-    'company',
     'library',
     'people',
     'schedule',

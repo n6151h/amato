@@ -7,7 +7,6 @@ from django.utils.translation import ugettext_lazy as _
 
 from enumchoicefield import ChoiceEnum, EnumChoiceField
 
-import company.models as co
 import library.models as lm
 import people.models as pm
 

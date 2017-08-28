@@ -5,17 +5,16 @@ from .models import *
 from talent.models import Talent
 from talent.serializers import *
 
+from util.polymorphic import PolymorphicCTypeField
 
 class ArtistSerializer(serializers.ModelSerializer):
 
     #talents = serializers.StringRelatedField(many=True, read_only=True)
     #talents = TalentSerializer(read_only=True, many=True)
     talents = serializers.HyperlinkedRelatedField(read_only=True, many=True,
-                                                  view_name="talents:talent-list")
+                                                  view_name="api:talent:talent-detail")
 
-    def get_queryset(self):
-        import pdb
-        pdb.set_trace()
+    polymorphic_ctype = PolymorphicCTypeField(read_only=True)
 
     class Meta:
         model = Artist

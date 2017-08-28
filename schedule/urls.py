@@ -1,8 +1,9 @@
 from django.conf.urls import url, include
 from rest_framework import routers
-from rest_framework.schemas import get_schema_view
 
 from . import views
+
+app_name = "schedule"
 
 router = routers.DefaultRouter()
 

@@ -1,4 +1,9 @@
 from django.conf.urls import url, include
+from rest_framework import routers
+
+app_name = "api"
+
+router = routers.DefaultRouter()
 
 urlpatterns = [
     url(r'^library/', include('library.urls', namespace="library")),

@@ -1,5 +1,8 @@
 from django.contrib import admin
 
+admin.site.site_title = "Your App Title"
+admin.site.site_header = "Your App Admin"
+
 
 from .models import *
 

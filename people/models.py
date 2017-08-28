@@ -28,6 +28,10 @@ class Person(PolymorphicModel):
     Basic but essential information about a person.  This is by and large
     an abstract class for the other models defined herein.
     '''
+
+    class Meta:
+        verbose_name_plural = "People"
+
     firstname = models.CharField(max_length=30, null=False, blank=False)
     surname = models.CharField(max_length=30)
 

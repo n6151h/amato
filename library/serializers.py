@@ -5,6 +5,10 @@ from .models import *
 
 from .forms import *
 
+from util.polymorphic import PolymorphicCTypeField
+
+
+# -----[ Roles and role subtypes (e.g. OperaticRole) ]
 
 class OperaticRoleSerializer(serializers.ModelSerializer):
 
@@ -16,6 +20,8 @@ class OperaticRoleSerializer(serializers.ModelSerializer):
     book = serializers.HyperlinkedRelatedField(
                     queryset=Opera.objects.all(),
                     view_name='api:library:opera-detail')
+
+    polymorphic_ctype = PolymorphicCTypeField(read_only=True)
 
     class Meta:
         model = OperaticRole
@@ -35,7 +41,6 @@ class OperaticRoleSerializer(serializers.ModelSerializer):
         In the end, I wound up not using this at all and just making
         the *roles* field in *OperaSerializer* a *HyperlinkedRelatedField*.
         '''
-        import pdb
         return super(OperaticRoleSerializer, self).to_representation(obj)
 
 
@@ -70,10 +75,16 @@ class RoleSerializer(serializers.ModelSerializer):
         return super(RoleSerializer, self).to_internal_value(data)
 
 
+
+# -----[ Books and Book subtypees (e.g. scripts, opera scores, ...) ]
+
+
 class ScriptSerializer(serializers.ModelSerializer):
 
     roles = RoleSerializer(many=True, read_only=True)
     url = serializers.HyperlinkedIdentityField(view_name='api:library:script-detail')
+
+    polymorphic_ctype = PolymorphicCTypeField(read_only=True)
 
     class Meta:
         model = Script
@@ -85,6 +96,8 @@ class MusicalSerializer(serializers.ModelSerializer):
 
     roles = RoleSerializer(many=True, read_only=True)
     url = serializers.HyperlinkedIdentityField(view_name='api:library:musical-detail')
+
+    polymorphic_ctype = PolymorphicCTypeField(read_only=True)
 
     class Meta:
         model = Musical
@@ -99,11 +112,7 @@ class OperaSerializer(serializers.ModelSerializer):
     url = serializers.HyperlinkedIdentityField(
                 view_name='api:library:opera-detail')
 
-    def get_queryset(self, request):
-        import pdb
-        pdb.set_trace()
-
-        return OperaticRole.objects.all()
+    polymorphic_ctype = PolymorphicCTypeField(read_only=True)
 
     class Meta:
         model = Opera
@@ -135,8 +144,8 @@ class OperaSerializer(serializers.ModelSerializer):
 
     #     return instance
 
-    def to_representation(self, obj):
-         return super(OperaSerializer, self).to_representation(obj)
+    #def to_representation(self, obj):
+    #     return super(OperaSerializer, self).to_representation(obj)
 
 
 class BookSerializer(serializers.ModelSerializer):

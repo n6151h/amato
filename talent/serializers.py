@@ -2,9 +2,13 @@ from rest_framework import serializers
 
 from .models import *
 
-
+from util.polymorphic import PolymorphicCTypeField
 
 class SingingSerializer(serializers.ModelSerializer):
+
+    polymorphic_ctype = PolymorphicCTypeField(read_only=True)
+    voice = serializers.StringRelatedField()
+    fach = serializers.StringRelatedField()
 
     class Meta:
         model = Singing
@@ -12,6 +16,18 @@ class SingingSerializer(serializers.ModelSerializer):
 
 
 class DancingSerializer(serializers.ModelSerializer):
+
+    polymorphic_ctype = PolymorphicCTypeField(read_only=True)
+    style = serializers.StringRelatedField()
+
+    class Meta:
+        model = Dancing
+        fields = '__all__'
+
+class OrchestraSerializer(serializers.ModelSerializer):
+
+    polymorphic_ctype = PolymorphicCTypeField(read_only=True)
+    instrument = serializers.StringRelatedField()
 
     class Meta:
         model = Dancing
@@ -39,7 +55,7 @@ class TalentSerializer(serializers.ModelSerializer):
 
     def to_internal_value(self, data):
         """
-        Because Person is Polymorphic
+        Because Talent is Polymorphic
         """
         if data.get('type') == "Singing":
             self.Meta.model = Singing
