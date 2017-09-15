@@ -25,19 +25,40 @@ class SingingAdmin(TalentSubclassAdmin):
     base_model = Singing
     show_in_index = True
 
+    list_display = ['display_name',]
     exclude = ('category',)
+    def display_name(self, obj):
+
+      return "{} ({})".format((obj.voice.name).title(), obj.fach.display_name) \
+            if obj.fach.name != '' else (obj.voice.name).title()
+
+    display_name.short_description = 'Vocal Range (and Fach)'
+
 
 @admin.register(Voice)
 class VoiceAdmin(admin.ModelAdmin):
     base_model = Voice
     show_in_index = True
 
+    list_display = ['display_name',]
+
+    def display_name(self, obj):
+      return (obj.name).title()
+
+    display_name.short_description = 'Vocal Range / Type'
+
+
 @admin.register(Fach)
 class FachAdmin(admin.ModelAdmin):
     base_model = Fach
     show_in_index = True
 
+    list_display = ['display_or_caps',]
 
+    def display_or_caps(self, obj):
+        return obj.display_name if obj.display_name != "" else (obj.name).title()
+
+    display_or_caps.short_description = 'Fach'
 
 @admin.register(Dancing)
 class DancingAdmin(TalentSubclassAdmin):

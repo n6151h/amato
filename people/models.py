@@ -22,6 +22,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 from talent.models import Talent
 
+from library.models import Book
 
 class Person(PolymorphicModel):
     '''
@@ -32,32 +33,37 @@ class Person(PolymorphicModel):
     class Meta:
         verbose_name_plural = "People"
 
-    firstname = models.CharField(max_length=30, null=False, blank=False)
-    surname = models.CharField(max_length=30)
-
-    phone = PhoneNumberField(blank=True, null=False, default='')
-    email = models.EmailField(blank=True, default='')
 
     talents = models.ManyToManyField(Talent,
                                      verbose_name="talents and skills")
 
-    @property
-    def sorting_name(self):
-        return '{}, {}'.format(self.surname, self.firstname)
-
-    @property
-    def name(self):
-        return '{} {}'.format(self.firstname, self.surname)
-
     def __str__(self):
-        return self.name
+        return self.full_name
 
-    def __unicode__(self):
-        return self.name
+    __unicode__ = __str__
 
     @property
     def type(self):
         return self.__class__.__name__
+
+
+    @property
+    def full_name(self):
+        contact = self.contacts.first()
+        if contact is not None:
+            return "%s %s" % (contact.firstname, contact.surname)
+        else:
+            return ""
+
+
+class Staff(Person):
+    '''
+    This would include people who are not performers or artists.
+    Production staff, stage crew, house staff (box office, ushers)
+    would fall into this category.
+    '''
+    class Meta:
+        verbose_name_plural = 'staff'
 
 
 class Artist(Person):
@@ -75,7 +81,55 @@ class Artist(Person):
     *Talent* can (and for now will) also include conductors, choreaographers,
     and directors.
     '''
+
     agent = models.CharField(max_length=60, null=False, blank=True, default='')
     headshot = models.ImageField(null=True, blank=True, default=None)
 
 
+
+class ContactData(models.Model):
+    '''
+    We separate this from *Person* subclasses for two reasons:
+
+      1. DRY -- both *Artist* and *Staff* subclasses require this
+         information.
+      2. We use a different naming scheme for *Role* instances.
+
+    '''
+    firstname = models.CharField(max_length=30, null=False, blank=False)
+    surname = models.CharField(max_length=30, blank=True, null=False, default='')
+    phone = PhoneNumberField(blank=True, null=False, default='')
+    email = models.EmailField(blank=True, default='')
+    person = models.ForeignKey(Person, related_name='contacts', default=None, null=True)
+
+    class Meta:
+        verbose_name_plural = 'contact data'
+
+class RoleLevel(models.Model):
+    '''
+    Levels are used to describe the size or difficulty of
+    a role.  Levels mig0t include "principal" and "comprimario", or
+    "major" and "minor".
+    '''
+    name = models.CharField(max_length=100, blank=False, null=False)
+    rank = models.IntegerField(blank=False, null=False, default=-1)
+
+    def __str__(self):
+        return self.name
+
+    __unicode__ = __str__
+
+class Role(Person):
+    '''
+    We'll use this subclass to encode roles associated with operas
+    (or musicals or scripts).
+    '''
+    book = models.ForeignKey(Book)  # related_name will be role_set
+    name = models.CharField(max_length=100, blank=False, null=False)
+    description = models.CharField(max_length=100, blank=False, null=False)
+    level = models.ForeignKey(RoleLevel)
+
+    def __str__(self):
+        return "%s (%s)" % (self.name, self.book.title)
+
+    __unicode__ = __str__

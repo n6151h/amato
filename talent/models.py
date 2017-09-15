@@ -21,36 +21,6 @@ class TalentCategoryEnum(ChoiceEnum):
     admin = "admin"
     sales = "sales/marketing"
 
-class VoiceTypeEnum(ChoiceEnum):
-    unspecified = "unspecified"
-    soprano = "soprano"
-    alto = "alto"
-    mezzo = "mezzo-soprano"
-    tenor = "tenor"
-    countertenor = "countertenor"
-    baritone = "baritone"
-    bass = "bass"
-
-class FachEnum(ChoiceEnum):
-    unspecified = ""
-    lyric = 'lyric'
-    coloratura = 'coloratura'
-    dramatic = 'dramatic'
-    spinto = 'spinto'
-    verdi = 'verdi'
-    mozart = 'mozart'
-    helgen = 'helgen'
-    wagnerian = 'wagnerian'
-    baroque = 'baroque'
-
-class DancingStyleEnum(ChoiceEnum):
-    unspecified = ""
-    ballet = "ballet"
-    tap = "tap"
-    modern = "modern"
-    jazz = "jazz"
-    exotic = "exotic"
-
 
 
 class Talent(PolymorphicModel):
@@ -129,6 +99,8 @@ class Voice(models.Model):
 
 class Fach(models.Model):
     name = models.CharField(max_length=40, verbose_name="Fach or style",
+                            blank=True, null=False, default="", unique=True)
+    display_name = models.CharField(max_length=40, verbose_name="Fach (verbose name)",
                             blank=True, null=False, default="")
 
     def __str__(self):
@@ -152,8 +124,11 @@ class Fach(models.Model):
         t = self.__class__.objects.filter(**fields)
         if t:
             raise IntegrityError('<{}: {}> already exists'.format(self.type, t))
-        if kwargs['name'] is None:
-            kwargs['name'] = ''
+
+        if self.name is None:
+            self.name = ""
+        if self.display_name in (None, ''):
+            self.display_name = self.name.title()
         return super(self.__class__, self).save(**kwargs)
 
     @property

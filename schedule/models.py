@@ -5,8 +5,6 @@ from django.conf import settings
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-from enumchoicefield import ChoiceEnum, EnumChoiceField
-
 import library.models as lm
 import people.models as pm
 
@@ -81,12 +79,13 @@ class Costumer(models.Model):
     production = models.OneToOneField(Production, related_name="costumer",
                              on_delete=models.CASCADE)
 
-class CallTypes(ChoiceEnum):
-    unspecified = "unspecified"
-    rehearsal = "rehearsal"
-    performance = "performance"
-    meeting = "meeting"
+class CallType(models.Model):
+    name = models.CharField(max_length=40, blank=True, null=False,
+                            unique=True, default='')
+    def __str__(self):
+        return self.name
 
+    __unicode__ = __str__
 
 class Call(models.Model):
     '''
@@ -99,9 +98,10 @@ class Call(models.Model):
     duration = models.DurationField()
     location = models.CharField(max_length=100)
     production = models.ForeignKey(Production, related_name="calls")
-    type = EnumChoiceField(CallTypes,
-                           default=CallTypes.meeting)
+    type = models.ForeignKey(CallType)
     called = models.ManyToManyField(pm.Person)
+    short_description = models.CharField(max_length=100, blank=False, null=False)
+    long_description = models.TextField(blank=True, null=True)
 
 
 class Show(models.Model):
@@ -121,9 +121,8 @@ class Show(models.Model):
         return "{} ({})".format(self.production.book.title,
                                 self.curtain)
 
-    def __unicode__(self):
-        return "{} ({})".format(self.production.book.title,
-                                self.curtain)
+    __unicode__ = __str__
+
 
 # The following are positions within a production that can (and often
 # do) vary from show to show.

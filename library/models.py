@@ -27,7 +27,7 @@ from polymorphic.showfields import ShowFieldType
 
 from django.utils.translation import ugettext_lazy as _
 from enumchoicefield import ChoiceEnum, EnumChoiceField
-from talent.models import VoiceTypeEnum, FachEnum
+from talent.models import Voice, Fach
 
 from django.core.validators import MaxValueValidator, MinValueValidator
 
@@ -133,8 +133,8 @@ class Role(PolymorphicModel):
 
 
 class OperaticRole(Role):
-    voice = EnumChoiceField(VoiceTypeEnum, default=VoiceTypeEnum.unspecified)
-    fach = EnumChoiceField(FachEnum, default=FachEnum.unspecified)
+    voice = models.ForeignKey(Voice)
+    fach = models.ForeignKey(Fach)
 
     def __init__(self, *args, **kwargs):
         super(OperaticRole, self).__init__(*args, **kwargs)

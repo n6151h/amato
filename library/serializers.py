@@ -1,78 +1,13 @@
 
 from rest_framework import serializers
 
+from urllib.parse import urlparse
+
 from .models import *
 
 from .forms import *
 
 from util.polymorphic import PolymorphicCTypeField
-
-
-# -----[ Roles and role subtypes (e.g. OperaticRole) ]
-
-class OperaticRoleSerializer(serializers.ModelSerializer):
-
-    url = serializers.HyperlinkedIdentityField(
-                    view_name='api:library:operaticrole-detail')
-
-    #book = serializers.PrimaryKeyRelatedField(
-    #                queryset=Opera.objects.all())
-    book = serializers.HyperlinkedRelatedField(
-                    queryset=Opera.objects.all(),
-                    view_name='api:library:opera-detail')
-
-    polymorphic_ctype = PolymorphicCTypeField(read_only=True)
-
-    class Meta:
-        model = OperaticRole
-        fields = '__all__'
-
-    def create(self, validated_data):
-        role = OperaticRole.objects.create(**validated_data)
-        return role
-
-    def to_representation(self, obj):
-        '''
-        For whatever reason, when we get here, *obj* is a *Role*
-        instance rather than an *OperaticRole* instance.  Even more
-        odd is the fact that there is a *operaticrole* attribute
-        of *obj* that points to what we really want.  WTF?
-
-        In the end, I wound up not using this at all and just making
-        the *roles* field in *OperaSerializer* a *HyperlinkedRelatedField*.
-        '''
-        return super(OperaticRoleSerializer, self).to_representation(obj)
-
-
-class RoleSerializer(serializers.ModelSerializer):
-
-    url = serializers.HyperlinkedIdentityField(view_name='api:library:role-detail')
-    book = serializers.HyperlinkedRelatedField(view_name='api:library:book-detail', queryset=Opera.objects.all())
-
-    class Meta:
-        model = Role
-        fields = '__all__'
-
-    def to_representation(self, obj):
-        """
-        Because Role is Polymorphic
-        """
-        if isinstance(obj, OperaticRole):
-            return OperaticRoleSerializer(obj, context=self.context).to_representation(obj)
-
-        return super(RoleSerializer, self).to_representation(obj)
-
-
-    def to_internal_value(self, data):
-        """
-        Because Role is Polymorphic
-        """
-        if data.get('type') == "OperaticRole":
-            self.Meta.model = OperaticRole
-            return OperaticRoleSerializer(context=self.context).to_internal_value(data)
-
-        self.Meta.model = Role
-        return super(RoleSerializer, self).to_internal_value(data)
 
 
 
@@ -81,7 +16,7 @@ class RoleSerializer(serializers.ModelSerializer):
 
 class ScriptSerializer(serializers.ModelSerializer):
 
-    roles = RoleSerializer(many=True, read_only=True)
+    #roles = RoleSerializer(many=True, read_only=True)
     url = serializers.HyperlinkedIdentityField(view_name='api:library:script-detail')
 
     polymorphic_ctype = PolymorphicCTypeField(read_only=True)
@@ -94,7 +29,7 @@ class ScriptSerializer(serializers.ModelSerializer):
 
 class MusicalSerializer(serializers.ModelSerializer):
 
-    roles = RoleSerializer(many=True, read_only=True)
+    #roles = RoleSerializer(many=True, read_only=True)
     url = serializers.HyperlinkedIdentityField(view_name='api:library:musical-detail')
 
     polymorphic_ctype = PolymorphicCTypeField(read_only=True)
@@ -106,8 +41,8 @@ class MusicalSerializer(serializers.ModelSerializer):
 
 class OperaSerializer(serializers.ModelSerializer):
 
-    roles = serializers.HyperlinkedRelatedField(read_only=True,
-                view_name="api:library:operaticrole-detail", many=True)
+    #roles = serializers.HyperlinkedRelatedField(read_only=True,
+    #            view_name="api:library:operaticrole-detail", many=True)
 
     url = serializers.HyperlinkedIdentityField(
                 view_name='api:library:opera-detail')
@@ -150,7 +85,8 @@ class OperaSerializer(serializers.ModelSerializer):
 
 class BookSerializer(serializers.ModelSerializer):
 
-    roles = serializers.PrimaryKeyRelatedField(many=True, queryset=Role.objects.all())
+    roles = serializers.HyperlinkedRelatedField(many=True, read_only=True,
+                                                view_name="api:people:role-detail")
     url = serializers.HyperlinkedIdentityField(view_name='api:library:book-detail')
 
     class Meta:

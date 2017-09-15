@@ -9,6 +9,7 @@ router = routers.DefaultRouter()
 
 router.register(r'person', views.PersonViewSet)
 router.register(r'artist', views.ArtistViewSet)
+router.register(r'role', views.RoleViewSet)
 
 
 # Wire up our API using automatic URL routing.

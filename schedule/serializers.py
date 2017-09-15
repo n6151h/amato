@@ -1,5 +1,4 @@
 from rest_framework import serializers
-from enumchoicefield import ChoiceEnum, EnumChoiceField
 
 from .models import *
 
@@ -26,8 +25,6 @@ class CallSerializer(serializers.ModelSerializer):
     class Meta:
         model = Call
         fields = '__all__'
-
-    type = EnumChoiceField(enum_class=CallTypes)
 
 
 class CastMemberSerializer(serializers.ModelSerializer):

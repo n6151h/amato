@@ -1,44 +1,32 @@
 from django.contrib import admin
 
+from enumchoicefield.admin import EnumListFilter
+
 from .models import (
         Script,
         Musical,
         Opera,
-        Role,
-        OperaticRole,
     )
 
-class OperaticRoleInline(admin.StackedInline):
-    model = OperaticRole
-    extra = 1
-
-    fields = ['name', 'description', 'voice', 'fach']
-
+@admin.register(Opera)
 class OperaAdmin(admin.ModelAdmin):
-    inlines = [OperaticRoleInline]
+    inlines = []
 
     list_display = ['title', 'composer', 'librettist', 'publisher']
 
 
-class RoleAdmin(admin.StackedInline):
-    model = Role
-    extra = 1
-    fields = ['name', 'description', 'role_type']
-
-
+@admin.register(Script)
 class ScriptAdmin(admin.ModelAdmin):
-    inlines = [RoleAdmin]
+    inlines = []
 
     list_display = ['title', 'author']
 
 
+@admin.register(Musical)
 class MusicalAdmin(admin.ModelAdmin):
-    inlines = [RoleAdmin]
+    inlines = []
 
     list_display = ['title', 'composer', 'lyricist']
 
-admin.site.register(Opera, OperaAdmin)
-admin.site.register(Script, ScriptAdmin)
-admin.site.register(Musical, MusicalAdmin)
 
 
