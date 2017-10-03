@@ -2,6 +2,8 @@ from rest_framework import serializers
 
 from .models import *
 
+import people.serializers as ps
+
 class SeasonSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -21,6 +23,8 @@ class ShowSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class CallSerializer(serializers.ModelSerializer):
+
+    called = ps.PersonSerializer(many=True, read_only=True)
 
     class Meta:
         model = Call

@@ -23,16 +23,10 @@ class CallAdmin(admin.ModelAdmin):
 
     def get_field_queryset(self, db, db_field, request):
         """
-        If the ModelAdmin specifies ordering, the queryset should respect that
-        ordering.  Otherwise don't specify the queryset, let the field decide
-        (returns None in that case).
+        We don't want to include Roles in the list of callable *Person*s.
         """
         if db_field.name == 'called':
-            import pdb
-            pdb.set_trace()
-
             role_ct = ContentType.objects.get_for_model(pm.Role)
-
             return db_field.remote_field.model._default_manager.exclude(polymorphic_ctype=role_ct)
 
         super().get_field_queryset(db, db_field, request)

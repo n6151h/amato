@@ -38,21 +38,6 @@ class Talent(PolymorphicModel):
         return self.category.name
 
 
-    # def save(self, **kwargs):
-    #     '''
-    #     We overload this so that we don't inadverntently save multiple instances.
-    #     Found I had to do this b/c the admin interface doesn't seem to use
-    #     the TalentManager.create method.  Rather, in creates an instance and then
-    #     calls ``save``.
-    #     '''
-    #     fields = dict([(f.name, getattr(self, f.name)) \
-    #                   for f in self._meta.fields \
-    #                     if not f.is_relation and (getattr(self, f.name) is not None)])
-    #     t = self.__class__.objects.non_polymorphic().filter(**fields)
-    #     if t:
-    #         raise IntegrityError('<{}: {}> already exists'.format(self.type, t))
-    #     return super(self.__class__, self).save(**kwargs)
-
     @property
     def type(self):
         return self.__class__.__name__

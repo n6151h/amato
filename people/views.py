@@ -7,12 +7,21 @@ from .models import *
 
 from .serializers import *
 
+class ContactDataViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows contact data to be viewed or edited.
+    """
+    queryset = ContactData.objects.all()
+    serializer_class = ContactDataSerializer
+
+
 class PersonViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows persons to be viewed or edited.
     """
     queryset = Person.objects.all()
     serializer_class = PersonSerializer
+
 
 class ArtistViewSet(viewsets.ModelViewSet):
     """
@@ -24,6 +33,7 @@ class ArtistViewSet(viewsets.ModelViewSet):
     #def get_queryset(self):
     #    import pdb
     #    pdb.set_trace()
+
 
 class RoleViewSet(viewsets.ModelViewSet):
     """

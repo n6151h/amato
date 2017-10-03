@@ -1,42 +1,554 @@
 [
-    {
-        "pk": 1,
-        "model": "people.Person",
-        "fields": {
-            "talents": [],
-            "firstname": "Nick",
-            "surname": "Seidenman",
-            "phone": "",
-            "email": "nick@seidenman.net"
-        }
-    },
-    {
-        "pk": 2,
-        "model": "people.Person",
-        "fields": {
-            "talents": [],
-            "firstname": "Maria Cristina",
-            "surname": "Keightley",
-            "phone": "",
-            "email": "mckbravo@yahoo.com"
-        }
-    },
-    {
-        "pk": 1,
-        "model": "people.Artist",
-        "fields": {
-            "person_ptr_id": 1,
-            "agent": "Waters",
-            "headshot": null
-        }
-    },
-    {
-        "pk": 2,
-        "model": "people.Artist",
-        "fields": {
-            "person_ptr_id": 2,
-            "agent": "Belle Opera",
-            "headshot": null
-        }
+  {
+    "model": "people.person",
+    "pk": 2,
+    "fields": {
+      "polymorphic_ctype": 20,
+      "talents": [
+        6
+      ]
     }
-    ]
+  },
+  {
+    "model": "people.person",
+    "pk": 6,
+    "fields": {
+      "polymorphic_ctype": 18,
+      "talents": [
+        4
+      ]
+    }
+  },
+  {
+    "model": "people.person",
+    "pk": 7,
+    "fields": {
+      "polymorphic_ctype": 20,
+      "talents": [
+        2
+      ]
+    }
+  },
+  {
+    "model": "people.person",
+    "pk": 8,
+    "fields": {
+      "polymorphic_ctype": 20,
+      "talents": [
+        4
+      ]
+    }
+  },
+  {
+    "model": "people.person",
+    "pk": 9,
+    "fields": {
+      "polymorphic_ctype": 20,
+      "talents": [
+        2
+      ]
+    }
+  },
+  {
+    "model": "people.person",
+    "pk": 10,
+    "fields": {
+      "polymorphic_ctype": 20,
+      "talents": [
+        6
+      ]
+    }
+  },
+  {
+    "model": "people.person",
+    "pk": 11,
+    "fields": {
+      "polymorphic_ctype": 20,
+      "talents": []
+    }
+  },
+  {
+    "model": "people.person",
+    "pk": 12,
+    "fields": {
+      "polymorphic_ctype": 20,
+      "talents": [
+        4
+      ]
+    }
+  },
+  {
+    "model": "people.person",
+    "pk": 13,
+    "fields": {
+      "polymorphic_ctype": 20,
+      "talents": [
+        2
+      ]
+    }
+  },
+  {
+    "model": "people.person",
+    "pk": 14,
+    "fields": {
+      "polymorphic_ctype": 20,
+      "talents": [
+        6
+      ]
+    }
+  },
+  {
+    "model": "people.person",
+    "pk": 15,
+    "fields": {
+      "polymorphic_ctype": 20,
+      "talents": [
+        9
+      ]
+    }
+  },
+  {
+    "model": "people.person",
+    "pk": 16,
+    "fields": {
+      "polymorphic_ctype": 20,
+      "talents": [
+        2
+      ]
+    }
+  },
+  {
+    "model": "people.person",
+    "pk": 17,
+    "fields": {
+      "polymorphic_ctype": 20,
+      "talents": [
+        4
+      ]
+    }
+  },
+  {
+    "model": "people.person",
+    "pk": 18,
+    "fields": {
+      "polymorphic_ctype": 20,
+      "talents": [
+        2
+      ]
+    }
+  },
+  {
+    "model": "people.person",
+    "pk": 19,
+    "fields": {
+      "polymorphic_ctype": 20,
+      "talents": [
+        6
+      ]
+    }
+  },
+  {
+    "model": "people.person",
+    "pk": 20,
+    "fields": {
+      "polymorphic_ctype": 20,
+      "talents": [
+        2
+      ]
+    }
+  },
+  {
+    "model": "people.person",
+    "pk": 21,
+    "fields": {
+      "polymorphic_ctype": 20,
+      "talents": [
+        9
+      ]
+    }
+  },
+  {
+    "model": "people.person",
+    "pk": 22,
+    "fields": {
+      "polymorphic_ctype": 20,
+      "talents": [
+        6
+      ]
+    }
+  },
+  {
+    "model": "people.person",
+    "pk": 23,
+    "fields": {
+      "polymorphic_ctype": 20,
+      "talents": [
+        4
+      ]
+    }
+  },
+  {
+    "model": "people.person",
+    "pk": 24,
+    "fields": {
+      "polymorphic_ctype": 20,
+      "talents": [
+        6
+      ]
+    }
+  },
+  {
+    "model": "people.person",
+    "pk": 25,
+    "fields": {
+      "polymorphic_ctype": 20,
+      "talents": [
+        4
+      ]
+    }
+  },
+  {
+    "model": "people.person",
+    "pk": 26,
+    "fields": {
+      "polymorphic_ctype": 18,
+      "talents": [
+        2
+      ]
+    }
+  },
+  {
+    "model": "people.artist",
+    "pk": 6,
+    "fields": {
+      "agent": "",
+      "headshot": "",
+      "talents": [
+        4
+      ]
+    }
+  },
+  {
+    "model": "people.artist",
+    "pk": 26,
+    "fields": {
+      "agent": "",
+      "headshot": "",
+      "talents": [
+        2
+      ]
+    }
+  },
+  {
+    "model": "people.contactdata",
+    "pk": 4,
+    "fields": {
+      "firstname": "Nick",
+      "surname": "Seidenman",
+      "phone": "+61415083108",
+      "email": "nick@seidenman.net",
+      "person": 6
+    }
+  },
+  {
+    "model": "people.contactdata",
+    "pk": 5,
+    "fields": {
+      "firstname": "Maria Cristina",
+      "surname": "Keightley",
+      "phone": "+61415623500",
+      "email": "mckbravo@yahoo.com",
+      "person": 26
+    }
+  },
+  {
+    "model": "people.rolelevel",
+    "pk": 1,
+    "fields": {
+      "name": "Principal",
+      "rank": 50
+    }
+  },
+  {
+    "model": "people.rolelevel",
+    "pk": 2,
+    "fields": {
+      "name": "Comprimario",
+      "rank": 30
+    }
+  },
+  {
+    "model": "people.rolelevel",
+    "pk": 3,
+    "fields": {
+      "name": "Chorus",
+      "rank": 10
+    }
+  },
+  {
+    "model": "people.rolelevel",
+    "pk": 4,
+    "fields": {
+      "name": "Supernumerary",
+      "rank": 5
+    }
+  },
+  {
+    "model": "people.role",
+    "pk": 2,
+    "fields": {
+      "book": 1,
+      "name": "Don Giovanni",
+      "description": "a dissolute nobleman",
+      "level": 1,
+      "talents": [
+        6
+      ]
+    }
+  },
+  {
+    "model": "people.role",
+    "pk": 7,
+    "fields": {
+      "book": 1,
+      "name": "Donna Anna",
+      "description": "noblewoman, daughter of comendatore",
+      "level": 1,
+      "talents": [
+        2
+      ]
+    }
+  },
+  {
+    "model": "people.role",
+    "pk": 8,
+    "fields": {
+      "book": 1,
+      "name": "Don Ottavio",
+      "description": "Donna Anna's fiance`",
+      "level": 1,
+      "talents": [
+        4
+      ]
+    }
+  },
+  {
+    "model": "people.role",
+    "pk": 9,
+    "fields": {
+      "book": 1,
+      "name": "Donna Elvira",
+      "description": "Don Giovanni's estranged wife",
+      "level": 1,
+      "talents": [
+        2
+      ]
+    }
+  },
+  {
+    "model": "people.role",
+    "pk": 10,
+    "fields": {
+      "book": 1,
+      "name": "Leporello",
+      "description": "Don Giovanni's servant",
+      "level": 1,
+      "talents": [
+        6
+      ]
+    }
+  },
+  {
+    "model": "people.role",
+    "pk": 11,
+    "fields": {
+      "book": 1,
+      "name": "Comendatore",
+      "description": "Father of Donna Anna",
+      "level": 1,
+      "talents": []
+    }
+  },
+  {
+    "model": "people.role",
+    "pk": 12,
+    "fields": {
+      "book": 2,
+      "name": "Nemorino",
+      "description": "country bumpkin",
+      "level": 1,
+      "talents": [
+        4
+      ]
+    }
+  },
+  {
+    "model": "people.role",
+    "pk": 13,
+    "fields": {
+      "book": 2,
+      "name": "Adina",
+      "description": "land-owner, love interest of Nemorino",
+      "level": 1,
+      "talents": [
+        2
+      ]
+    }
+  },
+  {
+    "model": "people.role",
+    "pk": 14,
+    "fields": {
+      "book": 2,
+      "name": "Belcore",
+      "description": "army sargeant, Nemorino's rival for Adina",
+      "level": 1,
+      "talents": [
+        6
+      ]
+    }
+  },
+  {
+    "model": "people.role",
+    "pk": 15,
+    "fields": {
+      "book": 2,
+      "name": "Dulcamara",
+      "description": "snake-oil salesman",
+      "level": 1,
+      "talents": [
+        9
+      ]
+    }
+  },
+  {
+    "model": "people.role",
+    "pk": 16,
+    "fields": {
+      "book": 2,
+      "name": "Gianetta",
+      "description": "villager (and busybody)",
+      "level": 2,
+      "talents": [
+        2
+      ]
+    }
+  },
+  {
+    "model": "people.role",
+    "pk": 17,
+    "fields": {
+      "book": 3,
+      "name": "Rodolfo",
+      "description": "a poet",
+      "level": 1,
+      "talents": [
+        4
+      ]
+    }
+  },
+  {
+    "model": "people.role",
+    "pk": 18,
+    "fields": {
+      "book": 3,
+      "name": "Mimi",
+      "description": "a milliner / grisette",
+      "level": 1,
+      "talents": [
+        2
+      ]
+    }
+  },
+  {
+    "model": "people.role",
+    "pk": 19,
+    "fields": {
+      "book": 3,
+      "name": "Marcello",
+      "description": "a painter, Rodolfo's roommate",
+      "level": 1,
+      "talents": [
+        6
+      ]
+    }
+  },
+  {
+    "model": "people.role",
+    "pk": 20,
+    "fields": {
+      "book": 3,
+      "name": "Musetta",
+      "description": "another grisette, Marcello's love on/off love interest",
+      "level": 1,
+      "talents": [
+        2
+      ]
+    }
+  },
+  {
+    "model": "people.role",
+    "pk": 21,
+    "fields": {
+      "book": 3,
+      "name": "Colline",
+      "description": "philosopher friend of Rodolfo & Marcello",
+      "level": 1,
+      "talents": [
+        9
+      ]
+    }
+  },
+  {
+    "model": "people.role",
+    "pk": 22,
+    "fields": {
+      "book": 3,
+      "name": "Schaunard",
+      "description": "musician friend of Rodolfo and Marcello",
+      "level": 1,
+      "talents": [
+        6
+      ]
+    }
+  },
+  {
+    "model": "people.role",
+    "pk": 23,
+    "fields": {
+      "book": 3,
+      "name": "Benoit",
+      "description": "Rodolfo & Marcello's landlord",
+      "level": 2,
+      "talents": [
+        4
+      ]
+    }
+  },
+  {
+    "model": "people.role",
+    "pk": 24,
+    "fields": {
+      "book": 3,
+      "name": "Alcindoro",
+      "description": "Musetta's sugar-daddy",
+      "level": 2,
+      "talents": [
+        6
+      ]
+    }
+  },
+  {
+    "model": "people.role",
+    "pk": 25,
+    "fields": {
+      "book": 3,
+      "name": "Parpinol",
+      "description": "small boy, crier for toy peddler",
+      "level": 2,
+      "talents": [
+        4
+      ]
+    }
+  }
+]

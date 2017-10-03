@@ -1,36 +1,89 @@
 [
-    {
-        "pk": 1,
-        "model": "schedule.Season",
-        "fields": {
-            "name": "2017-2018",
-            "start_date": "2017-08-01",
-            "end_date": "2018-01-07"
-        }
-    },
-    {
-        "pk": 2,
-        "model": "schedule.Season",
-        "fields": {
-            "name": "2017-2018",
-            "start_date": "2017-08-01",
-            "end_date": "2018-01-07"
-        }
-    },
-    {
-        "pk": 1,
-        "model": "schedule.Production",
-            "fields": {
-            "book": 1,
-            "season": 1
-        }
-    },
-    {
-        "model": "schedule.Production",
-            "pk": 2,
-            "fields": {
-            "book": 2,
-            "season": 2
-        }
+  {
+    "model": "schedule.season",
+    "pk": 1,
+    "fields": {
+      "name": "2017-2018",
+      "start_date": "2017-09-14",
+      "end_date": "2018-06-01"
     }
+  },
+  {
+    "model": "schedule.production",
+    "pk": 1,
+    "fields": {
+      "book": 1,
+      "season": 1
+    }
+  },
+  {
+    "model": "schedule.calltype",
+    "pk": 1,
+    "fields": {
+      "name": "Rehearsal"
+    }
+  },
+  {
+    "model": "schedule.calltype",
+    "pk": 2,
+    "fields": {
+      "name": "Performance"
+    }
+  },
+  {
+    "model": "schedule.calltype",
+    "pk": 3,
+    "fields": {
+      "name": "Meeting"
+    }
+  },
+  {
+    "model": "schedule.call",
+    "pk": 1,
+    "fields": {
+      "dtg": "2017-08-30T19:30:00Z",
+      "duration": "03:00:00",
+      "location": "Phoenix Theatre",
+      "production": 1,
+      "type": 2,
+      "short_description": "Opening Night",
+      "long_description": "",
+      "called": [
+        6,
+        26
+      ]
+    }
+  },
+  {
+    "model": "schedule.show",
+    "pk": 1,
+    "fields": {
+      "production": 1,
+      "curtain": "2017-08-30T19:30:00Z"
+    }
+  },
+  {
+    "model": "schedule.show",
+    "pk": 2,
+    "fields": {
+      "production": 1,
+      "curtain": "2017-08-31T19:30:00Z"
+    }
+  },
+  {
+    "model": "schedule.show",
+    "pk": 3,
+    "fields": {
+      "production": 1,
+      "curtain": "2017-09-01T19:30:00Z"
+    }
+  },
+  {
+    "model": "schedule.show",
+    "pk": 4,
+    "fields": {
+      "production": 1,
+      "curtain": "2017-09-02T19:30:00Z"
+    }
+  }
 ]
