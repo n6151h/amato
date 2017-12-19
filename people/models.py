@@ -100,7 +100,7 @@ class ContactData(models.Model):
     surname = models.CharField(max_length=30, blank=True, null=False, default='')
     phone = PhoneNumberField(blank=True, null=False, default='')
     email = models.EmailField(blank=True, default='')
-    person = models.ForeignKey(Person, related_name='contacts', default=None, null=True)
+    person = models.ForeignKey(Person, related_name='contacts', default=None, null=True, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name_plural = 'contact data'
@@ -124,10 +124,10 @@ class Role(Person):
     We'll use this subclass to encode roles associated with operas
     (or musicals or scripts).
     '''
-    book = models.ForeignKey(Book)  # related_name will be role_set
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)  # related_name will be role_set
     name = models.CharField(max_length=100, blank=False, null=False)
     description = models.CharField(max_length=100, blank=False, null=False)
-    level = models.ForeignKey(RoleLevel)
+    level = models.ForeignKey(RoleLevel, on_delete=models.CASCADE)
 
     def __str__(self):
         return "%s (%s)" % (self.name, self.book.title)

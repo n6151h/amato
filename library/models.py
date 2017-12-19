@@ -117,7 +117,7 @@ class Role(PolymorphicModel):
     '''
     name = models.CharField(max_length=50)
     description = models.CharField(max_length=100, null=True, blank=True, default='')
-    book = models.ForeignKey(Book, related_name='roles')
+    book = models.ForeignKey(Book, related_name='roles', on_delete=models.CASCADE)
     role_type = EnumChoiceField(RoleTypeEnum,
                                 default=RoleTypeEnum.unspecified)
 
@@ -133,8 +133,8 @@ class Role(PolymorphicModel):
 
 
 class OperaticRole(Role):
-    voice = models.ForeignKey(Voice)
-    fach = models.ForeignKey(Fach)
+    voice = models.ForeignKey(Voice, on_delete=models.CASCADE)
+    fach = models.ForeignKey(Fach, on_delete=models.CASCADE)
 
     def __init__(self, *args, **kwargs):
         super(OperaticRole, self).__init__(*args, **kwargs)

@@ -135,9 +135,9 @@ class Singing(Talent):
         super(Singing, self).__init__(*args, category=TalentCategoryEnum.singing,
                                       **kwargs)
 
-    voice = models.ForeignKey(Voice, verbose_name="Vocal Range or Type")
+    voice = models.ForeignKey(Voice, verbose_name="Vocal Range or Type", on_delete=models.CASCADE)
     fach = models.ForeignKey(Fach, verbose_name="Fach or Style",
-                             null=False, blank=True)
+                             null=False, blank=True, on_delete=models.CASCADE)
 
     def __str__(self):
         return "{} ({})".format(self.voice, self.fach) \
@@ -165,7 +165,7 @@ class Orchestra(Talent):
     class Meta:
         verbose_name_plural = "Orchestra"
 
-    instrument = models.ForeignKey(Instrument)
+    instrument = models.ForeignKey(Instrument, on_delete=models.CASCADE)
 
     def __init__(self, *args, **kwargs):
         super(Orchestra, self).__init__(*args, category=TalentCategoryEnum.instrument,
@@ -203,7 +203,7 @@ class Dancing(Talent):
         super(Dancing, self).__init__(*args, category=TalentCategoryEnum.dancing,
                                       **kwargs)
 
-    style = models.ForeignKey(DancingStyle)
+    style = models.ForeignKey(DancingStyle, on_delete=models.CASCADE)
 
     def __str__(self):
         result = "{}: {}".format(super(Dancing, self).__str__(), str(self.style))

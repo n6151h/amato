@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.core.urlresolvers import resolve
+from django.urls import resolve
 
 try:
     from urlparse import urlparse

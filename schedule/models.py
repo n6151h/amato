@@ -29,8 +29,8 @@ class Production(models.Model):
     '''
     Container for *Show*s.
     '''
-    book = models.ForeignKey(lm.Book, related_name="productions")
-    season = models.ForeignKey(Season, related_name='productions')
+    book = models.ForeignKey(lm.Book, related_name="productions", on_delete=models.CASCADE)
+    season = models.ForeignKey(Season, related_name='productions', on_delete=models.CASCADE)
 
     def __str__(self):
         return "{} ({})".format(self.book.title, self.season.name)
@@ -97,8 +97,8 @@ class Call(models.Model):
     dtg = models.DateTimeField()
     duration = models.DurationField()
     location = models.CharField(max_length=100)
-    production = models.ForeignKey(Production, related_name="calls")
-    type = models.ForeignKey(CallType)
+    production = models.ForeignKey(Production, related_name="calls", on_delete=models.CASCADE)
+    type = models.ForeignKey(CallType, on_delete=models.CASCADE)
     called = models.ManyToManyField(pm.Person)
     short_description = models.CharField(max_length=100, blank=False, null=False)
     long_description = models.TextField(blank=True, null=True)
@@ -114,7 +114,7 @@ class Show(models.Model):
     need to be sub-classed and that doesn't need to have attributes
     included that are extraneous to call types other than PERFORMANCE.
     '''
-    production = models.ForeignKey(Production, related_name='shows')
+    production = models.ForeignKey(Production, related_name='shows', on_delete=models.CASCADE)
     curtain = models.DateTimeField()
 
     def __str__(self):
