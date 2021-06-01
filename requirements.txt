@@ -43,7 +43,7 @@ six==1.11.0
 sqlparse==0.2.4
 typing==3.6.2
 uritemplate==3.0.0
-urllib3==1.22
+urllib3==1.26.5
 webencodings==0.5.1
 Werkzeug==0.13
 xlwt==1.3.0
